@@ -23,7 +23,7 @@ public class Ship {
 	 *
 	 * @return size of the ship
 	 */
-	public Object getSize() {
+	public int getSize() {
 		return this.size;
 	}
 

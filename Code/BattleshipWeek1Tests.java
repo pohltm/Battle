@@ -163,7 +163,7 @@ public class BattleshipWeek1Tests {
 	
 	@Test
 	public void GameBoardConstructorTests() throws Exception{
-		GameBoard gb = new GameBoard();
+		GameBoard gb = new GameBoard(1,1,1);
 		Assert.assertNotNull(gb);
 	}
 	
@@ -179,5 +179,49 @@ public class BattleshipWeek1Tests {
 		Assert.assertNotNull(ai);
 	}
 	
+	@Test
+	public void GameConstructorTests() throws Exception{
+		Game game = new Game(2,2,2);
+		Assert.assertNotNull(game);
+	}
 	
+	@Test 
+	public void testThatGridReturnsAnArray(){
+		Grid g = new Grid(10,10);
+		IGridCell[][] grid = g.getGrid();
+		Assert.assertEquals(10,grid.length);
+	}
+	
+	@Test
+	public void testThatGridInitializesCorrectly(){
+		Grid g  = new Grid(3,3);
+		IGridCell[][] grid = g.getGrid();
+		
+		for (int i = 0; i < 3; i++){
+			for(int j = 0; j < 3; j++){
+				Assert.assertTrue(grid[i][j] instanceof Empty);
+			}
+		}
+	}
+	
+	@Test
+	public void testThatGameBoardReturnsCorrectNumberOfShips(){
+		GameBoard g = new GameBoard(10,10,5);
+		Assert.assertEquals(g.getNumberOfShips(),5);
+	}
+	
+	@Test
+	public void testThatGameReturnsCorrectNumberOfShips(){
+		Game g = new Game(10,10,5);
+		Assert.assertEquals(g.getNumberOfShips(),5);
+	}
+	
+	@Test
+	public void testThatShootingAnEmptyResultsInMiss(){
+		Grid g  = new Grid(10,10);
+		IGridCell[][] grid = g.getGrid();
+		Assert.assertTrue(grid[3][7] instanceof Empty);
+		g.shoot(3,7);
+		Assert.assertTrue(grid[3][7] instanceof Miss);
+	}
 }

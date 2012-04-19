@@ -9,6 +9,7 @@ public class Grid {
 
 	private int width;
 	private int height;
+	private IGridCell[][] grid;
 	
 	/**
 	 * TODO Put here a description of what this constructor does.
@@ -19,6 +20,8 @@ public class Grid {
 	public Grid(int w, int h) {
 		this.width = w;
 		this.height = h;
+		this.grid = new IGridCell[w][h];
+		this.initializeGrid();
 	}
 
 	/**
@@ -37,6 +40,36 @@ public class Grid {
 	 */
 	public Object getHeight() {
 		return this.height;
+	}
+
+	/**
+	 * TODO Put here a description of what this method does.
+	 *
+	 * @return grid;
+	 */
+	public IGridCell[][] getGrid() {
+		return this.grid;
+	}
+	
+	public void initializeGrid(){
+		for(int i = 0; i < this.width; i++){
+			for(int j = 0; j < this.height; j++){
+				this.grid[i][j] = new Empty();
+			}
+		}
+	}
+
+	/**
+	 * TODO Put here a description of what this method does.
+	 *
+	 * @param w
+	 * @param h
+	 */
+	public void shoot(int w, int h) {
+		if(this.grid[w][h] instanceof Empty){
+			this.grid[w][h] = new Miss();
+		}
+		
 	}
 
 }
