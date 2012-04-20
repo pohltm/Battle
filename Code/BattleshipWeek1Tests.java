@@ -77,89 +77,50 @@ public class BattleshipWeek1Tests {
 		Assert.assertEquals(g.getHeight(), 100);
 	}
 	
-//	@Test
-//	public void NegativeWGridConstructorTests() throws Exception{
-//		try{
-//			Grid g = new Grid(-1,10);
-//			Assert.fail();
-//		}catch(Exception e){
-//			Assert.assertTrue(true);
-//		}
-//	}
-//	
-//	@Test
-//	public void NegativeHGridConstructorTests() throws Exception{
-//		try{
-//			Grid g = new Grid(10,-1);
-//			Assert.fail();
-//		}catch(Exception e){
-//			Assert.assertTrue(true);
-//		}
-//	}
-//	
-//	@Test
-//	public void ZeroWGridConstructorTests() throws Exception{
-//		try{
-//			Grid g = new Grid(0,10);
-//			Assert.fail();
-//		}catch(Exception e){
-//			Assert.assertTrue(true);
-//		}
-//	}
-//	
-//	@Test
-//	public void ZeroHGridConstructorTests() throws Exception{
-//		try{
-//			Grid g = new Grid(10,0);
-//			Assert.fail();
-//		}catch(Exception e){
-//			Assert.assertTrue(true);
-//		}
-//	}
-//	
-//	@Test
-//	public void TooWideGridConstructorTests() throws Exception{
-//		try{
-//			Grid g = new Grid(101,10);
-//			Assert.fail();
-//		}catch(Exception e){
-//			Assert.assertTrue(true);
-//		}
-//	}
-//	
-//	@Test
-//	public void TooTallGridConstructorTests() throws Exception{
-//		try{
-//			Grid g = new Grid(10,101);
-//			Assert.fail();
-//		}catch(Exception e){
-//			Assert.assertTrue(true);
-//		}
-//	}
-	
 	@Test
 	public void ShipConstructorTests() throws Exception{
-		Ship s = new Ship(3);
+		Ship s = new Ship(5,5,3,true);
 		Assert.assertNotNull(s);
 	}
 	
 	@Test
 	public void NormalShipConstructorTests() throws Exception{
-		Ship s = new Ship(3);
+		Ship s = new Ship(5,5,3,true);
 		Assert.assertEquals(s.getSize(), 3);
+		Assert.assertEquals(s.getRow(), 5);
+		Assert.assertEquals(s.getCol(), 5);
+		Assert.assertTrue(s.isHorizontal());
 	}
 	
 	@Test
-	public void SmallestShipConstructorTests() throws Exception{
-		Ship s = new Ship(1);
+	public void SmallShipConstructorTests() throws Exception{
+		Ship s = new Ship(5,5,1,true);
 		Assert.assertEquals(s.getSize(), 1);
+		Assert.assertEquals(s.getRow(), 5);
+		Assert.assertEquals(s.getCol(), 5);
+		Assert.assertTrue(s.isHorizontal());
+		
 	}
 	
 	@Test
-	public void LargestShipConstructorTests() throws Exception{
-		Ship s = new Ship(100);
+	public void LargeShipConstructorTests() throws Exception{
+		Ship s = new Ship(5,5,100,true);
 		Assert.assertEquals(s.getSize(), 100);
+		Assert.assertEquals(s.getRow(), 5);
+		Assert.assertEquals(s.getCol(), 5);
+		Assert.assertTrue(s.isHorizontal());
 	}
+	
+	@Test
+	public void VerticalShipConstructorTests() throws Exception{
+		Ship s = new Ship(5,5,3,false);
+		Assert.assertEquals(s.getSize(), 3);
+		Assert.assertEquals(s.getRow(), 5);
+		Assert.assertEquals(s.getCol(), 5);
+		Assert.assertFalse(s.isHorizontal());
+	}
+	
+	
 	
 	@Test
 	public void GameBoardConstructorTests() throws Exception{
@@ -217,11 +178,82 @@ public class BattleshipWeek1Tests {
 	}
 	
 	@Test
+	public void testThatPlacingValidShipResultsInShipCells(){
+		Grid g  = new Grid(10,10);
+		IGridCell[][] grid = g.getGrid();
+		Ship s = new Ship(5,5,3,true);
+		for (int i = 0; i < 3; i++){
+			for(int j = 0; j < 3; j++){
+				Assert.assertTrue(grid[i][j] instanceof Empty);
+			}
+		}
+		g.place(s);
+		Assert.assertTrue(grid[5][4] instanceof Empty);
+		Assert.assertTrue(grid[5][5] instanceof ShipCell);
+		Assert.assertTrue(grid[5][6] instanceof ShipCell);
+		Assert.assertTrue(grid[5][7] instanceof ShipCell);
+		Assert.assertTrue(grid[5][8] instanceof Empty);
+	}
+	
+	@Test
+	public void testThatPlacingInvalidShipResultsInException(){
+		Grid g  = new Grid(10,10);
+		IGridCell[][] grid = g.getGrid();
+		Ship s = new Ship(-1,-1,3,true);
+		for (int i = 0; i < 3; i++){
+			for(int j = 0; j < 3; j++){
+				Assert.assertTrue(grid[i][j] instanceof Empty);
+			}
+		}
+		try{
+			g.place(s);
+			Assert.fail();
+		}catch(Exception e){
+			Assert.assertTrue(true);
+		}
+	}
+	
+	@Test
 	public void testThatShootingAnEmptyResultsInMiss(){
 		Grid g  = new Grid(10,10);
 		IGridCell[][] grid = g.getGrid();
 		Assert.assertTrue(grid[3][7] instanceof Empty);
 		g.shoot(3,7);
 		Assert.assertTrue(grid[3][7] instanceof Miss);
+	}
+	
+	@Test
+	public void testThatShootingAShipResultsInHit(){
+		Grid g = new Grid(10,10);
+		IGridCell[][] grid = g.getGrid();
+		Ship s = new Ship(3,7,1,true);
+		g.place(s);
+		Assert.assertTrue(grid[3][7] instanceof ShipCell);
+		g.shoot(3,7);
+		Assert.assertTrue(grid[3][7] instanceof Hit);
+	}
+	
+	@Test
+	public void testThatShootingAnEmptyLocationAgainHasNoEffect(){
+		Grid g  = new Grid(10,10);
+		IGridCell[][] grid = g.getGrid();
+		Assert.assertTrue(grid[3][7] instanceof Empty);
+		g.shoot(3,7);
+		Assert.assertTrue(grid[3][7] instanceof Miss);
+		g.shoot(3,7);
+		Assert.assertTrue(grid[3][7] instanceof Miss);
+	}
+	
+	@Test
+	public void testThatShootingAShipCellAgainHasNoEffect(){
+		Grid g = new Grid(10,10);
+		IGridCell[][] grid = g.getGrid();
+		Ship s = new Ship(3,7,1,true);
+		g.place(s);
+		Assert.assertTrue(grid[3][7] instanceof ShipCell);
+		g.shoot(3,7);
+		Assert.assertTrue(grid[3][7] instanceof Hit);
+		g.shoot(3,7);
+		Assert.assertTrue(grid[3][7] instanceof Hit);
 	}
 }

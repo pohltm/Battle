@@ -10,6 +10,8 @@ public class GameBoard {
 	private int width;
 	private int height;
 	private int numShips;
+	private Grid ships;
+	private Grid shots;
 	
 	public GameBoard (int w, int h, int n){
 		this.width = w;
@@ -26,4 +28,11 @@ public class GameBoard {
 		return this.numShips;
 	}
 	
+	public int getHeight(){
+		return this.height;
+	}
+	
+	public int getWidth(){
+		return this.width;
+	}
 }

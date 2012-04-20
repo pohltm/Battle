@@ -65,11 +65,29 @@ public class Grid {
 	 * @param w
 	 * @param h
 	 */
-	public void shoot(int w, int h) {
-		if(this.grid[w][h] instanceof Empty){
-			this.grid[w][h] = new Miss();
+	public void shoot(int r, int c) {
+		if(this.grid[r][c] instanceof Empty){
+			this.grid[r][c] = new Miss();
 		}
-		
+		else if(this.grid[r][c] instanceof ShipCell){
+			this.grid[r][c] = new Hit();
+		}
 	}
-
+	
+	public void place(Ship ship)
+	{
+		int i = 0;
+		int r = ship.getRow();
+		int c = ship.getCol();
+		while (i<ship.getSize()){
+			this.grid[r][c] = new ShipCell(ship);
+			if(ship.isHorizontal()){
+				c++;
+			}
+			else{
+				r++;
+			}
+			i++;
+		}
+	}
 }
