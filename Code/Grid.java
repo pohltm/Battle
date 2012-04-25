@@ -12,10 +12,10 @@ public class Grid {
 	private IGridCell[][] grid;
 	
 	/**
-	 * TODO Put here a description of what this constructor does.
+	 * Constructs a new Grid object
 	 *
-	 * @param w
-	 * @param h
+	 * @param width of grid
+	 * @param height of grid
 	 */
 	public Grid(int w, int h) {
 		this.width = w;
@@ -61,9 +61,8 @@ public class Grid {
 
 	/**
 	 * TODO Put here a description of what this method does.
-	 *
-	 * @param w
-	 * @param h
+	 * @param r 
+	 * @param c 
 	 */
 	public void shoot(int r, int c) {
 		if(this.grid[r][c] instanceof Empty){
@@ -74,6 +73,11 @@ public class Grid {
 		}
 	}
 	
+	/**
+	 * TODO Put here a description of what this method does.
+	 *
+	 * @param ship
+	 */
 	public void place(Ship ship)
 	{
 		int i = 0;

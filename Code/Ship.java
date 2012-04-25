@@ -58,7 +58,7 @@ public class Ship {
 	 * @return horizontal?
 	 */
 	public boolean isHorizontal() {
-		return horizontal;
+		return this.horizontal;
 	}
 
 }
