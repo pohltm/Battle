@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 
 /**
  * TODO Put here a description of what this class does.
@@ -59,5 +61,33 @@ public class GameBoard {
 	 */
 	public Object getBottomGrid() {
 		return this.bottomGrid;
+	}
+
+	/**
+	 * TODO Put here a description of what this method does.
+	 *
+	 * @param ships
+	 * @return whether placement is valid
+	 */
+	public boolean areValidPlacements(ArrayList<Ship> ships) {
+		boolean result = true;
+		
+		for(Ship s : ships){
+			result = result && shipFits(s);
+		}
+		
+		return result;
+	}
+	
+	private boolean shipFits(Ship s){
+		boolean fits = s.getSize() > 0 && s.getRow() >= 0 && s.getCol() >= 0 && s.getCol() < this.width && s.getRow() < this.height;
+		
+		if(s.isHorizontal()){
+			fits = fits && s.getCol() + s.getSize() <= this.width;
+		}else{
+			fits = fits && s.getRow() + s.getSize() <= this.height;
+		}
+		
+		return fits;
 	}
 }

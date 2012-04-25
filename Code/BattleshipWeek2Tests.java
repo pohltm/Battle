@@ -100,7 +100,7 @@ public class BattleshipWeek2Tests {
 		ArrayList<Ship> ships = new ArrayList<Ship>();
 		Ship s = new Ship(0,0,3,true);
 		ships.add(s);
-		Assert.assertFalse(g.areValidPlacements(ships));
+		Assert.assertTrue(g.areValidPlacements(ships));
 	}
 	
 	@Test

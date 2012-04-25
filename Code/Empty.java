@@ -7,4 +7,9 @@
  */
 public class Empty implements IGridCell {
 
+	@Override
+	public String toString(){
+		return " ";
+	}
+	
 }

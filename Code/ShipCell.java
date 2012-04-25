@@ -16,4 +16,9 @@ public class ShipCell implements IGridCell {
 	public Ship getS() {
 		return s;
 	}
+	
+	@Override
+	public String toString(){
+		return "S";
+	}
 }

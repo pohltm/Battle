@@ -7,4 +7,8 @@
  */
 public class Miss implements IGridCell {
 
+	@Override
+	public String toString(){
+		return "M";
+	}
 }

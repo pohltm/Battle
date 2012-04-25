@@ -7,4 +7,9 @@
  */
 public class Hit implements IGridCell {
 
+	@Override
+	public String toString(){
+		return "H";
+	}
+	
 }
