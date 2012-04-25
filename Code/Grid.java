@@ -43,9 +43,9 @@ public class Grid {
 	}
 
 	/**
-	 * TODO Put here a description of what this method does.
+	 * returns IGridCell[][] that is the grid.
 	 *
-	 * @return grid;
+	 * @return grid
 	 */
 	public IGridCell[][] getGrid() {
 		return this.grid;
@@ -57,6 +57,17 @@ public class Grid {
 				this.grid[i][j] = new Empty();
 			}
 		}
+	}
+	
+	public String toString(){
+		String ret = "";
+		for(int i = 0; i < this.width; i++){
+			for(int j = 0; j < this.height; j++){
+				ret+= "[" + this.grid[i][j].toString() + "] ";
+			}
+			ret += "\n";
+		}
+		return ret;
 	}
 
 	/**
@@ -77,13 +88,17 @@ public class Grid {
 	 * TODO Put here a description of what this method does.
 	 *
 	 * @param ship
+	 * @return whether the ship was placed successfully. False = overlap of ships.
 	 */
-	public void place(Ship ship)
+	public boolean place(Ship ship)
 	{
 		int i = 0;
 		int r = ship.getRow();
 		int c = ship.getCol();
 		while (i<ship.getSize()){
+			if(this.grid[r][c] instanceof ShipCell){
+				return false;
+			}
 			this.grid[r][c] = new ShipCell(ship);
 			if(ship.isHorizontal()){
 				c++;
@@ -93,5 +108,6 @@ public class Grid {
 			}
 			i++;
 		}
+		return true;
 	}
 }

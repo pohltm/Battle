@@ -24,7 +24,15 @@ public class GameBoard {
 
 	private void makeGrids()
 	{
+		this.makeTopGrid();
+		this.makeBottomGrid();
+	}
+	
+	private void makeTopGrid(){
 		this.topGrid = new Grid(this.width, this.height);
+	}
+	
+	private void makeBottomGrid(){
 		this.bottomGrid = new Grid(this.width, this.height);
 	}
 	
@@ -50,7 +58,7 @@ public class GameBoard {
 	 *
 	 * @return top grid
 	 */
-	public Object getTopGrid() {
+	public Grid getTopGrid() {
 		return this.topGrid;
 	}
 
@@ -59,21 +67,35 @@ public class GameBoard {
 	 *
 	 * @return bottom grid
 	 */
-	public Object getBottomGrid() {
+	public Grid getBottomGrid() {
 		return this.bottomGrid;
 	}
 
+	public String toString(){
+		return "Top Grid:\n" + this.topGrid.toString() + "\nBottom Grid:\n" + this.bottomGrid.toString() + "\n";
+	}
+	
 	/**
-	 * TODO Put here a description of what this method does.
+	 * Makes sure placements are valid. Also adds ships to the bottom grid.
 	 *
 	 * @param ships
 	 * @return whether placement is valid
 	 */
-	public boolean areValidPlacements(ArrayList<Ship> ships) {
+	public boolean checkAndPlaceShips(ArrayList<Ship> ships) {
 		boolean result = true;
 		
 		for(Ship s : ships){
 			result = result && shipFits(s);
+			
+			if(!result){
+				return result;
+			}
+			result = result && this.bottomGrid.place(s);
+			
+			if(!result){
+				this.makeBottomGrid();
+				return result;
+			}
 		}
 		
 		return result;
