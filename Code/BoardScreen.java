@@ -1,3 +1,5 @@
+import java.util.ResourceBundle;
+
 import com.trolltech.qt.gui.QColor;
 import com.trolltech.qt.gui.QGridLayout;
 import com.trolltech.qt.gui.QPaintEvent;
@@ -9,11 +11,13 @@ import com.trolltech.qt.gui.QWidget;
 public class BoardScreen extends QWidget {
 	
 	QWidget parent;
+	ResourceBundle bundle;
 	
-	public BoardScreen(QWidget parent) {
+	public BoardScreen(QWidget parent, ResourceBundle bundle) {
 		super(parent);
+		this.bundle = bundle;
 		this.parent = parent;
-		this.parent.setWindowTitle("Board Screen");
+		this.parent.setWindowTitle(bundle.getString("boardScreen"));
 		
 		QWidget board1 = createBoard1(10, 10);
 		
