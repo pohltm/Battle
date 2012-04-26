@@ -40,7 +40,7 @@ public class SetupScreen2 extends QWidget {
 		QValidator intValidator = new QIntValidator(this);
 		
 		for(int i = 0; i < numberShips; i++) {
-			QLabel shipLength = new QLabel(bundle.getString("shipLength") + (i + 1) + " : ");
+			QLabel shipLength = new QLabel(bundle.getString("shipLength") + (i + 1) + ": ");
 			shipLength.setFont(font);
 			QLineEdit length = new QLineEdit("2");
 			length.setValidator(intValidator);

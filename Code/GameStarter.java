@@ -3,8 +3,6 @@ import java.util.ResourceBundle;
 
 import com.trolltech.qt.gui.QApplication;
 import com.trolltech.qt.gui.QMainWindow;
-import com.trolltech.qt.gui.QMenu;
-import com.trolltech.qt.gui.QMenuBar;
 
 
 /**
@@ -48,6 +46,10 @@ public class GameStarter extends QMainWindow {
 	
 	public void showStartScreen() {
 		this.setCentralWidget(new StartScreen(this, bundle));
+	}
+	
+	public void refreshStartScreen(ResourceBundle newBundle) {
+		this.setCentralWidget(new StartScreen(this, newBundle));
 	}
 	
 	public void showSetupScreen1() {
