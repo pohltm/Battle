@@ -127,6 +127,8 @@ public class BattleshipWeek3Tests {
 		assertEquals("Back", englishBundle.getString("back"));
 		assertEquals("Next", englishBundle.getString("next"));
 		assertEquals("Play", englishBundle.getString("play"));
+		// Added after initial commit
+		assertEquals("OK", englishBundle.getString("ok"));
 	}
 	
 	@Test
@@ -146,12 +148,18 @@ public class BattleshipWeek3Tests {
 		assertEquals("Change the application's language to German", englishBundle.getString("changeToGerman"));
 		assertEquals("Help", englishBundle.getString("help"));
 		assertEquals("About", englishBundle.getString("about"));
+		// Added after commit
+		assertEquals("How to play", englishBundle.getString("howToPlay"));
+		assertEquals("Goal", englishBundle.getString("goal"));
+		assertEquals("Setup", englishBundle.getString("setup"));
+		assertEquals("Play", englishBundle.getString("play"));
+		assertEquals("Victory", englishBundle.getString("victory"));
 	}
 	
 	@Test
 	public void testEnglishPopupText() {
 		assertEquals("<b>Goal:</b> To sink all of your opponent's ships by correctly guessing their location.<br>", englishBundle.getString("aboutGoal"));
-		assertEquals("<b>Setup:</b> Each player has a board with two girds, a set number of ships each with a specified size. The top grid is used to track your shots at the opponent's ships. The bottom grid is used to place your ships vertically or horizontally (not diagonally) across grid spaces, and cannot hang over the grid. Ships can touch each other, but can't both be on the same space. The bottom grid is also used to track the opponent's shots at your ships.<br>", englishBundle.getString("aboutSetup"));
+		assertEquals("<b>Setup:</b> Each player has a board with two girds and a set number of ships each with a specified size. The top grid is used to track your shots at the opponent's ships. The bottom grid is used to place your ships vertically or horizontally (not diagonally) across grid spaces, and cannot hang over the grid. Ships can touch each other, but can't both be on the same space. The bottom grid is also used to track the opponent's shots at your ships.<br>", englishBundle.getString("aboutSetup"));
 		assertEquals("<b>Play:</b> Players take turns firing a shot to attack enemy ships. On your turn, left-click on a space to shoot there. If there is no ship there, it will be a 'miss' and marked white. If there is a ship, it will be a 'hit' and marked red. The markings are the same when your opponent shoots at your ships. When every space of a ship is marked red, the ship is sunk.<br>", englishBundle.getString("aboutPlay"));
 		assertEquals("<b>Victory:</b> The first player to sink all of the other player's ships wins.", englishBundle.getString("aboutVictory"));
 		assertEquals("This Battleship application was created by Chris Hoorn, Cody Plungis, and Tiffany Pohl.", englishBundle.getString("applicationInfo"));
@@ -190,6 +198,12 @@ public class BattleshipWeek3Tests {
 		assertEquals("ƒndern Sie die Sprache der Anwendung zum Deutschen", germanBundle.getString("changeToGerman"));
 		assertEquals("Hilfe", germanBundle.getString("help"));
 		assertEquals("‹ber", germanBundle.getString("about"));
+		// Added after commit
+		assertEquals("Wie man spielt", germanBundle.getString("howToPlay"));
+		assertEquals("Ziel", germanBundle.getString("goal"));
+		assertEquals("Einstellung", germanBundle.getString("setup"));
+		assertEquals("Spiel", englishBundle.getString("play"));
+		assertEquals("Sieg", germanBundle.getString("victory"));
 	}
 	
 	@Test
@@ -199,5 +213,16 @@ public class BattleshipWeek3Tests {
 		assertEquals("<b>Spiel:</b> Die Spieler nehmen Umdrehungen einen Schuﬂ abfeuernd zu den feindlichen Schiffen des Angriffs. Auf Ihrer Umdrehung link-klicken Sie auf einem Raum, um dort zu schieﬂen. Wenn es kein Schiff dort gibt, ist es ein Verlust und ein signifikantes Weiﬂ. Wenn es ein Schiff gibt, ist es ein Schlag und ein signifikantes Rot. Die Markierungen sind die selben wenn Ihre Konkurrenteneintragf‰den an Ihren Schiffen. Wenn jeder Raum eines Schiffs signifikantes Rot ist, wird das Schiff gesunken.<br>", germanBundle.getString("aboutPlay"));
 		assertEquals("<b>Sieg:</b> Der erste Spieler, zum aller Schiffe des anderen Spielers zu sinken gewinnt.", germanBundle.getString("aboutVictory"));
 		assertEquals("Diese Linienschiffanwendung wurde durch Chris Hoorn, Cody Plungis und Tiffany Pohl verursacht.", germanBundle.getString("applicationInfo"));
+	}
+	
+	/**
+	 * Added after original commit of Week 3 test cases
+	 */
+	@Test
+	public void testThatBundleUpdatesCorrectly() {
+		ResourceBundle currentBundle = GameStarter.setupBundle(englishLocale);
+		assertEquals(englishBundle, currentBundle);
+		GameStarter.updateBundle(germanBundle);
+		assertEquals(GameStarter.bundle, germanBundle);
 	}
 }
