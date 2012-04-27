@@ -32,8 +32,7 @@ public class GameStarter extends QMainWindow {
 		super();
 		
 		Locale currentLocale;
-//		currentLocale = new Locale("en", "US");
-		currentLocale = new Locale("de", "DE");
+		currentLocale = new Locale("en", "US");
 		
 		bundle = setupBundle(currentLocale);
 		
@@ -46,10 +45,6 @@ public class GameStarter extends QMainWindow {
 	
 	public void showStartScreen() {
 		this.setCentralWidget(new StartScreen(this, bundle));
-	}
-	
-	public void refreshStartScreen(ResourceBundle newBundle) {
-		this.setCentralWidget(new StartScreen(this, newBundle));
 	}
 	
 	public void showSetupScreen1() {
