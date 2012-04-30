@@ -34,14 +34,12 @@ public class SetupScreen2 extends QWidget {
 	
 	public QWidget createMenu(int numberShips) {
 		QWidget menu = new QWidget(this);
-		QFont font = new QFont("Kristen ITC", 12);
 		
 		QGridLayout menuLayout = new QGridLayout();
 		QValidator intValidator = new QIntValidator(this);
 		
 		for(int i = 0; i < numberShips; i++) {
 			QLabel shipLength = new QLabel(bundle.getString("shipLength") + (i + 1) + ": ");
-			shipLength.setFont(font);
 			QLineEdit length = new QLineEdit("2");
 			length.setValidator(intValidator);
 			menuLayout.addWidget(shipLength, i + 1, 1);
@@ -49,9 +47,7 @@ public class SetupScreen2 extends QWidget {
 		}
 		
 		QPushButton back = new QPushButton(bundle.getString("back"));
-		back.setFont(font);
 		QPushButton play = new QPushButton(bundle.getString("play"));
-		play.setFont(font);
 		
 		menuLayout.addWidget(back, numberShips + 1, 1);
 		menuLayout.addWidget(play, numberShips + 1, 2);

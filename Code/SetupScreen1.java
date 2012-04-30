@@ -33,25 +33,20 @@ public class SetupScreen1 extends QWidget {
 	
 	public QWidget createMenu() {
 		QWidget menu = new QWidget(this);
-		QFont font = new QFont("Kristen ITC", 12);
 		
 		QValidator intValidator = new QIntValidator(this);
 		
 		QLabel boardSize = new QLabel(bundle.getString("enterBoardSize"));
-		boardSize.setFont(font);
 		QLineEdit boardWidth = new QLineEdit("10");
 		boardWidth.setValidator(intValidator);
 		QLineEdit boardHeight = new QLineEdit("10");
 		boardHeight.setValidator(intValidator);
 		QLabel numberShips = new QLabel(bundle.getString("enterNumShips"));
-		numberShips.setFont(font);
 		QLineEdit shipNumber = new QLineEdit("5");
 		shipNumber.setValidator(intValidator);
 		
 		QPushButton back = new QPushButton(bundle.getString("back"));
-		back.setFont(font);
 		QPushButton next = new QPushButton(bundle.getString("next"));
-		next.setFont(font);
 		
 		QGridLayout menuLayout = new QGridLayout();
 		menuLayout.addWidget(boardSize, 1, 1);

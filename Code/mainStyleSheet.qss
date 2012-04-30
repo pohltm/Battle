@@ -1,0 +1,42 @@
+QMainWindow {
+	background-color: QLinearGradient(x1:0, y1:0, x2:0, y2:1, stop:0 rgb(188, 240, 243), stop:1 rgb(78, 168, 175));
+}
+
+QPushButton {
+	min-width: 75px;
+	min-height: 40px;
+	background-color: QLinearGradient(x1:0, y1:0, x2:0, y2:1, stop:0 rgb(255, 255, 255), stop:1 rgb(200, 200, 200));
+	border: 1px solid black;
+	font: bold 24px;
+	font-family: "Kristen ITC";
+}
+
+QLabel {
+	font: 24px;
+	font-family: "Kristen ITC";
+}
+
+#mainTitle {
+	font: 125px;
+}
+
+QLineEdit {
+	font: 24px;
+}
+
+QMenuBar {
+	background-color: QLinearGradient(x1:0, y1:0, x2:0, y2:1, stop:0 rgb(255, 255, 255), stop:1 rgb(200, 200, 200));
+	max-height: 25px;
+}
+
+QMenuBar::item {
+	background-color: QLinearGradient(x1:0, y1:0, x2:0, y2:1, stop:0 rgb(255, 255, 255), stop:1 rgb(200, 200, 200));
+}
+
+QMenuBar::item:selected {
+	background-color: QLinearGradient(x1:0, y1:0, x2:0, y2:1, stop:0 rgb(200, 200, 200), stop:1 rgb(168, 168, 168));
+}
+
+QMessageBox {
+	background-color: QLinearGradient(x1:0, y1:0, x2:0, y2:1, stop:0 rgb(188, 240, 243), stop:1 rgb(78, 168, 175));
+}

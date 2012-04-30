@@ -42,8 +42,8 @@ public class BoardScreen extends QWidget {
 	public void paintEvent(QPaintEvent h) {
 		QPainter painter = new QPainter(this);
 		painter.setPen(QColor.black);
-		painter.drawRect(10, 10, this.width() / 2 - 20, this.height() - 20);
+		painter.drawRect(10, 10, this.width() - 20, this.height() / 2 - 20);
 		painter.setPen(QColor.blue);
-		painter.drawRect(this.width() / 2 + 10, 10, this.width() / 2 - 20, this.height() - 20);
+		painter.drawRect(10, this.height() / 2 + 10, this.width() - 20, this.height() / 2 - 20);
 	}
 }

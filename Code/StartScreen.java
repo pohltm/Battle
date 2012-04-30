@@ -21,7 +21,7 @@ public class StartScreen extends QWidget {
 		super(parent);
 		this.bundle = bundle;
 		this.parent = parent;
-		this.parent.setWindowTitle(bundle.getString("startScreen"));
+		this.parent.setWindowTitle(this.bundle.getString("startScreen"));
 		
 		QWidget title = createTitle();
 		
@@ -37,82 +37,13 @@ public class StartScreen extends QWidget {
 		this.show();
 	}
 	
-	public QMenuBar createMenu() {
-		QMenuBar menu = new QMenuBar();
-		
-		QMenu edit = new QMenu(bundle.getString("edit"));
-		QMenu language = new QMenu(bundle.getString("changeLanguage"));
-		
-		QAction englishAct = new QAction(bundle.getString("english"), menu);
-		englishAct.setShortcut("Ctrl+E");
-		englishAct.setStatusTip(bundle.getString("changeToEnglish"));
-		englishAct.triggered.connect(this, "english()");
-		
-		QAction germanAct = new QAction(bundle.getString("german"), menu);
-		germanAct.setShortcut("Ctrl+G");
-		germanAct.setStatusTip(bundle.getString("changeToGerman"));
-		germanAct.triggered.connect(this, "german()");
-		
-		language.addAction(englishAct);
-		language.addAction(germanAct);
-		edit.addMenu(language);
-		
-		QMenu help = new QMenu(bundle.getString("help"));
-		
-		QAction helpAct = new QAction(bundle.getString("help"), help);
-		helpAct.setShortcut("Ctrl+H");
-		helpAct.triggered.connect(this, "help()");
-		
-		QAction aboutAct = new QAction(bundle.getString("about"), help);
-		aboutAct.setShortcut("Ctrl+A");
-		aboutAct.triggered.connect(this, "about()");
-		
-		help.addAction(helpAct);
-		help.addAction(aboutAct);
-		
-		menu.addMenu(edit);
-		menu.addMenu(help);
-		
-		return menu;
-	}
-	
-	@SuppressWarnings("unused")
-	private void english() {
-		ResourceBundle newBundle = ResourceBundle.getBundle("BattleshipBundle", new Locale("en", "US"));
-		((GameStarter) this.parent).setCentralWidget(new StartScreen(this.parent, newBundle));
-	}
-	
-	@SuppressWarnings("unused")
-	private void german() {
-		ResourceBundle newBundle = ResourceBundle.getBundle("BattleshipBundle", new Locale("de", "DE"));
-		((GameStarter) this.parent).setCentralWidget(new StartScreen(this.parent, newBundle));
-	}
-	
-	@SuppressWarnings("unused")
-	private void help() {
-		QMessageBox helpBox = new QMessageBox(this);
-		helpBox.setWindowTitle(bundle.getString("help"));
-		helpBox.setText(bundle.getString("aboutGoal") + bundle.getString("aboutSetup") + bundle.getString("aboutPlay") + bundle.getString("aboutVictory"));
-		helpBox.show();
-	}
-	
-	@SuppressWarnings("unused")
-	private void about() {
-		QMessageBox aboutBox = new QMessageBox(this);
-		aboutBox.setWindowTitle(bundle.getString("about"));
-		aboutBox.setText(bundle.getString("applicationInfo"));
-		aboutBox.show();
-	}
-	
 	public QWidget createTitle() {
 		QWidget title = new QWidget(this);
-		QFont font = new QFont("Kristen ITC", 12);
 		
-		QLabel battleship = new QLabel(bundle.getString("battleship"));
-		battleship.setFont(new QFont("Kristen ITC", 75));
+		QLabel battleship = new QLabel(this.bundle.getString("battleship"));
+		battleship.setObjectName("mainTitle");
 		battleship.setAlignment(AlignmentFlag.AlignCenter);
-		QPushButton start = new QPushButton(bundle.getString("start"));
-		start.setFont(font);
+		QPushButton start = new QPushButton(this.bundle.getString("start"));
 		
 		QVBoxLayout titleLayout = new QVBoxLayout();
 		titleLayout.addWidget(battleship);
@@ -123,5 +54,111 @@ public class StartScreen extends QWidget {
 		title.setLayout(titleLayout);
 		
 		return title;
+	}
+	
+	public QMenuBar createMenu() {
+		QMenuBar menu = new QMenuBar();
+		
+		QMenu edit = new QMenu(this.bundle.getString("edit"));
+		QMenu language = new QMenu(this.bundle.getString("changeLanguage"));
+		
+		QAction englishAct = new QAction(this.bundle.getString("english"), language);
+		englishAct.setShortcut("Ctrl+E");
+		englishAct.setStatusTip(this.bundle.getString("changeToEnglish"));
+		englishAct.triggered.connect(this, "switchToEnglish()");
+		
+		QAction germanAct = new QAction(this.bundle.getString("german"), language);
+		germanAct.setShortcut("Ctrl+G");
+		germanAct.setStatusTip(this.bundle.getString("changeToGerman"));
+		germanAct.triggered.connect(this, "switchToGerman()");
+		
+		language.addAction(englishAct);
+		language.addAction(germanAct);
+		edit.addMenu(language);
+		
+		QMenu help = new QMenu(this.bundle.getString("help"));
+		QMenu howToPlay = new QMenu(this.bundle.getString("howToPlay"));
+		
+		QAction goalAct = new QAction(this.bundle.getString("goal"), howToPlay);
+		goalAct.triggered.connect(this, "explainGoal()");
+		
+		QAction setupAct = new QAction(this.bundle.getString("setup"), howToPlay);
+		setupAct.triggered.connect(this, "explainSetup()");
+		
+		QAction playAct = new QAction(this.bundle.getString("play"), howToPlay);
+		playAct.triggered.connect(this, "explainPlay()");
+		
+		QAction victoryAct = new QAction(this.bundle.getString("victory"), howToPlay);
+		victoryAct.triggered.connect(this, "explainVictory()");
+		
+		QAction aboutAct = new QAction(this.bundle.getString("about"), help);
+		aboutAct.setShortcut("Ctrl+A");
+		aboutAct.triggered.connect(this, "about()");
+		
+		howToPlay.addAction(goalAct);
+		howToPlay.addAction(setupAct);
+		howToPlay.addAction(playAct);
+		howToPlay.addAction(victoryAct);
+		help.addMenu(howToPlay);
+		help.addAction(aboutAct);
+		
+		menu.addMenu(edit);
+		menu.addMenu(help);
+		
+		return menu;
+	}
+	
+	@SuppressWarnings("unused")
+	private void switchToEnglish() {
+		this.bundle = ResourceBundle.getBundle("BattleshipBundle", new Locale("en", "US"));
+		GameStarter.updateBundle(this.bundle);
+		((GameStarter) this.parent).setCentralWidget(new StartScreen(this.parent, this.bundle));
+	}
+	
+	@SuppressWarnings("unused")
+	private void switchToGerman() {
+		this.bundle = ResourceBundle.getBundle("BattleshipBundle", new Locale("de", "DE"));
+		GameStarter.updateBundle(this.bundle);
+		((GameStarter) this.parent).setCentralWidget(new StartScreen(this.parent, this.bundle));
+	}
+	
+	@SuppressWarnings("unused")
+	private void explainGoal() {
+		QMessageBox goalBox = new QMessageBox(this);
+		goalBox.setWindowTitle(this.bundle.getString("goal"));
+		goalBox.setText(this.bundle.getString("aboutGoal"));
+		goalBox.show();
+	}
+	
+	@SuppressWarnings("unused")
+	private void explainSetup() {
+		QMessageBox setupBox = new QMessageBox(this);
+		setupBox.setWindowTitle(this.bundle.getString("setup"));
+		setupBox.setText(this.bundle.getString("aboutSetup"));
+		setupBox.show();
+	}
+	
+	@SuppressWarnings("unused")
+	private void explainPlay() {
+		QMessageBox playBox = new QMessageBox(this);
+		playBox.setWindowTitle(this.bundle.getString("play"));
+		playBox.setText(this.bundle.getString("aboutPlay"));
+		playBox.show();
+	}
+	
+	@SuppressWarnings("unused")
+	private void explainVictory() {
+		QMessageBox victoryBox = new QMessageBox(this);
+		victoryBox.setWindowTitle(this.bundle.getString("victory"));
+		victoryBox.setText(this.bundle.getString("aboutVictory"));
+		victoryBox.show();
+	}
+	
+	@SuppressWarnings("unused")
+	private void about() {
+		QMessageBox aboutBox = new QMessageBox(this);
+		aboutBox.setWindowTitle(this.bundle.getString("about"));
+		aboutBox.setText(this.bundle.getString("applicationInfo"));
+		aboutBox.show();
 	}
 }
