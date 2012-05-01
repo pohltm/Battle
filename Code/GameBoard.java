@@ -21,6 +21,10 @@ public class GameBoard {
 		this.numShips = n;
 		this.makeGrids();
 	}
+	
+	public GameBoard (){
+		this(10,10,5);
+	}
 
 	private void makeGrids()
 	{
@@ -81,21 +85,37 @@ public class GameBoard {
 	 * @param ships
 	 * @return whether placement is valid
 	 */
-	public boolean checkAndPlaceShips(ArrayList<Ship> ships) {
+	public boolean checkAndPlaceShips(ArrayList<Ship> ships, String grid) {
 		boolean result = true;
+		int n = 0;
 		
 		for(Ship s : ships){
+			if(n >= this.numShips){
+				return false;
+			}
 			result = result && shipFits(s);
 			
 			if(!result){
 				return result;
 			}
-			result = result && this.bottomGrid.place(s);
+			
+			if(grid.equals("top")){
+				result = result && this.getTopGrid().place(s);
+			}
+			else{
+				result = result && this.getBottomGrid().place(s);
+			}
 			
 			if(!result){
-				this.makeBottomGrid();
+				if(grid.equals("top")){
+					this.makeTopGrid();
+				}
+				else{
+					this.makeBottomGrid();
+				}
 				return result;
 			}
+			n++;
 		}
 		
 		return result;
@@ -111,5 +131,9 @@ public class GameBoard {
 		}
 		
 		return fits;
+	}
+
+	public boolean isEmpty() {
+		return (this.bottomGrid.isEmpty() && this.topGrid.isEmpty());
 	}
 }

@@ -75,13 +75,17 @@ public class Grid {
 	 * @param r 
 	 * @param c 
 	 */
-	public void shoot(int r, int c) {
+	public boolean shoot(int r, int c) {
 		if(this.grid[r][c] instanceof Empty){
 			this.grid[r][c] = new Miss();
 		}
 		else if(this.grid[r][c] instanceof ShipCell){
 			this.grid[r][c] = new Hit();
 		}
+		else{
+			return false;
+		}
+		return true;
 	}
 	
 	/**
@@ -107,6 +111,17 @@ public class Grid {
 				r++;
 			}
 			i++;
+		}
+		return true;
+	}
+
+	public boolean isEmpty() {
+		for(int r=0;r<this.height;r++){
+			for(int c=0;c<this.width;c++){
+				if(!(this.grid[r][c] instanceof Empty)){
+					return false;
+				}
+			}
 		}
 		return true;
 	}
