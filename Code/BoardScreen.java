@@ -1,9 +1,6 @@
 import java.util.ResourceBundle;
 
-import com.trolltech.qt.gui.QColor;
-import com.trolltech.qt.gui.QGridLayout;
-import com.trolltech.qt.gui.QPaintEvent;
-import com.trolltech.qt.gui.QPainter;
+import com.trolltech.qt.gui.QTableWidget;
 import com.trolltech.qt.gui.QVBoxLayout;
 import com.trolltech.qt.gui.QWidget;
 
@@ -12,38 +9,34 @@ public class BoardScreen extends QWidget {
 	
 	QWidget parent;
 	ResourceBundle bundle;
+	GameBoard gb;
 	
-	public BoardScreen(QWidget parent, ResourceBundle bundle) {
+	public BoardScreen(QWidget parent, ResourceBundle bundle, GameBoard gb) {
 		super(parent);
 		this.bundle = bundle;
 		this.parent = parent;
 		this.parent.setWindowTitle(bundle.getString("boardScreen"));
 		
-		QWidget board1 = createBoard1(10, 10);
+		this.gb = gb;
+		
+		QTableWidget table = createTable();
 		
 		QVBoxLayout widgetLayout = new QVBoxLayout();
-		widgetLayout.addWidget(board1);
+		widgetLayout.addWidget(table);
 		
 		this.setLayout(widgetLayout);
 		
 		this.show();
 	}
 	
-	public QWidget createBoard1(int width, int height) {
-		QWidget board1 = new QWidget(this);
-		
-		QGridLayout boardLayout = new QGridLayout();
-		
-		board1.setLayout(boardLayout);
-		
-		return board1;
-	}
-	
-	public void paintEvent(QPaintEvent h) {
-		QPainter painter = new QPainter(this);
-		painter.setPen(QColor.black);
-		painter.drawRect(10, 10, this.width() - 20, this.height() / 2 - 20);
-		painter.setPen(QColor.blue);
-		painter.drawRect(10, this.height() / 2 + 10, this.width() - 20, this.height() / 2 - 20);
+	public QTableWidget createTable() {
+		QTableWidget table = new QTableWidget(gb.getWidth(), gb.getHeight());
+		for (int i = 0; i < table.columnCount(); i++) {
+			table.setColumnWidth(i, 73);
+		}
+		for (int i = 0; i < table.rowCount(); i++) {
+			table.setRowHeight(i, 73);
+		}
+		return table;
 	}
 }
