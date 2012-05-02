@@ -45,12 +45,12 @@ public class BoardScreen extends QWidget {
 	public void paintEvent(QPaintEvent h) {
 		QPainter painter = new QPainter(this);
 		
-		int widthOfGrid = gb.getWidth()*25;
-		int heightOfGrid = gb.getHeight()*25;
+		int widthOfGrid = gb.getWidth()*30;
+		int heightOfGrid = gb.getHeight()*30;
 		
 		painter.setPen(QColor.black);
 		painter.drawRect(10, 10, widthOfGrid, heightOfGrid);
 		painter.setPen(QColor.blue);
-		painter.drawRect(10, heightOfGrid + 10, widthOfGrid, heightOfGrid);
+		painter.drawRect(10, heightOfGrid + 50, widthOfGrid, heightOfGrid);
 	}
 }
