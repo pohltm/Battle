@@ -20,7 +20,7 @@ public class BattleshipWeek3Tests {
 	@Test
 	public void testIsGameBoardEmpty(){
 		GameBoard gb = new GameBoard(10,10,5);
-		Assert.asserTrue(gb.isEmpty());
+		Assert.assertTrue(gb.isEmpty());
 	}
 
 	@Test
@@ -28,9 +28,9 @@ public class BattleshipWeek3Tests {
 		GameBoard gb = new GameBoard(10,10,2);
 		ArrayList<Ship> ships = new ArrayList<Ship>();
 		ships.add(new Ship(3,3,3,true));
-		ships.add(new Ship(4,6,2,true);
-		gb.checkAndPlaceShips(ships);
-		Assert.assertFalse(gb.isEmpty);
+		ships.add(new Ship(4,6,2,true));
+		gb.checkAndPlaceShips(ships, "bottom");
+		Assert.assertFalse(gb.isEmpty());
 	}
 	
 	@Test
@@ -38,10 +38,10 @@ public class BattleshipWeek3Tests {
 		GameBoard gb = new GameBoard(10,10,2);
 		ArrayList<Ship> ships = new ArrayList<Ship>();
 		ships.add(new Ship(3,3,3,true));
-		Assert.assertTrue(gb.checkAndPlaceShips(ships));
+		Assert.assertTrue(gb.checkAndPlaceShips(ships, "bottom"));
 		ships.removeAll(ships);
 		ships.add(new Ship(4,6,2,true));
-		Assert.assertTrue(gb.checkAndPlaceShips(ships));
+		Assert.assertTrue(gb.checkAndPlaceShips(ships, "bottom"));
 	}
 	
 	@Test
@@ -50,10 +50,8 @@ public class BattleshipWeek3Tests {
 		ArrayList<Ship> ships = new ArrayList<Ship>();
 		ships.add(new Ship(3,3,3,true));
 		ships.add(new Ship(4,6,2,true));
-		Assert.assertTrue(gb.checkAndPlaceShips(ships));
-		ships.removeAll(ships);
 		ships.add(new Ship(1,1,5,false));
-		Assert.assertFalse(gb.checkAndPlaceShips(ships));
+		Assert.assertFalse(gb.checkAndPlaceShips(ships, "bottom"));
 	}
 	
 	@Test
@@ -80,7 +78,7 @@ public class BattleshipWeek3Tests {
 		
 		for(int r = 0; r < gb.getHeight(); r++){
 			for(int c = 0; c < gb.getWidth(); c++){
-				result = result || !(gb.getTopGrid()[r][c] instanceof ShipCell); 
+				result = result || !(gb.getTopGrid().getGrid()[r][c] instanceof ShipCell); 
 			}
 		}
 		
@@ -94,14 +92,14 @@ public class BattleshipWeek3Tests {
 		ships.add(new Ship(3,3,3,true));
 		ships.add(new Ship(4,6,2,true));
 		ships.add(new Ship(1,1,5,false));
-		gb.checkAndPlaceShips(ships);
+		gb.checkAndPlaceShips(ships, "Bottom");
 		AI ai = new AI(gb);
 		ai.placeShips();
 		Boolean result = false;
-		
+		ai.shoot();
 		for(int r = 0; r < gb.getHeight(); r++){
 			for(int c = 0; c < gb.getWidth(); c++){
-				result = result || (gb.getBottomGrid()[r][c] instanceof Hit) || (gb.getBottomGrid()[r][c] instanceof Miss); 
+				result = result || (gb.getBottomGrid().getGrid()[r][c] instanceof Hit) || (gb.getBottomGrid().getGrid()[r][c] instanceof Miss); 
 			}
 		}
 		
@@ -202,7 +200,7 @@ public class BattleshipWeek3Tests {
 		assertEquals("Wie man spielt", germanBundle.getString("howToPlay"));
 		assertEquals("Ziel", germanBundle.getString("goal"));
 		assertEquals("Einstellung", germanBundle.getString("setup"));
-		assertEquals("Spiel", englishBundle.getString("play"));
+		assertEquals("Spiel", germanBundle.getString("play"));
 		assertEquals("Sieg", germanBundle.getString("victory"));
 	}
 	
