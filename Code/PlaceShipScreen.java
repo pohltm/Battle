@@ -8,13 +8,13 @@ import com.trolltech.qt.gui.QVBoxLayout;
 import com.trolltech.qt.gui.QWidget;
 
 
-public class BoardScreen extends QWidget {
+public class PlaceShipScreen extends QWidget {
 	
 	QWidget parent;
 	ResourceBundle bundle;
 	GameBoard gb;
 	
-	public BoardScreen(QWidget parent, ResourceBundle bundle, GameBoard gb) {
+	public PlaceShipScreen(QWidget parent, ResourceBundle bundle, GameBoard gb) {
 		super(parent);
 		this.bundle = bundle;
 		this.parent = parent;
@@ -44,13 +44,9 @@ public class BoardScreen extends QWidget {
 	
 	public void paintEvent(QPaintEvent h) {
 		QPainter painter = new QPainter(this);
-		
-		int widthOfGrid = gb.getWidth()*25;
-		int heightOfGrid = gb.getHeight()*25;
-		
 		painter.setPen(QColor.black);
-		painter.drawRect(10, 10, widthOfGrid, heightOfGrid);
+		painter.drawRect(10, 10, this.width() - 20, this.height() / 2 - 20);
 		painter.setPen(QColor.blue);
-		painter.drawRect(10, heightOfGrid + 10, widthOfGrid, heightOfGrid);
+		painter.drawRect(10, this.height() / 2 + 10, this.width() - 20, this.height() / 2 - 20);
 	}
 }

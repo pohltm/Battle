@@ -3,6 +3,7 @@ import java.util.ResourceBundle;
 
 import com.trolltech.qt.core.QFile;
 import com.trolltech.qt.core.QIODevice.OpenModeFlag;
+import com.trolltech.qt.core.QSize;
 import com.trolltech.qt.gui.QApplication;
 import com.trolltech.qt.gui.QMainWindow;
 
@@ -25,6 +26,7 @@ public class GameStarter extends QMainWindow {
 	public static void main(String[] args) {
 		QApplication.initialize(args);
 		QMainWindow mainWindow = new GameStarter();
+		mainWindow.setFixedSize(new QSize(1000, 800));
 		
 		mainWindow.show();
 		QApplication.exec();
@@ -66,6 +68,10 @@ public class GameStarter extends QMainWindow {
 	
 	public void showSetupScreen2(GameBoard gb) {
 		this.setCentralWidget(new SetupScreen2(this, bundle, gb));
+	}
+	
+	public void showplaceShipScreen(GameBoard gb) {
+		this.setCentralWidget(new PlaceShipScreen(this, bundle, gb));
 	}
 	
 	public void showBoardScreen(GameBoard gb) {

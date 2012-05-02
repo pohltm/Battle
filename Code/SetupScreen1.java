@@ -1,6 +1,5 @@
 import java.util.ResourceBundle;
 
-import com.trolltech.qt.gui.QFont;
 import com.trolltech.qt.gui.QGridLayout;
 import com.trolltech.qt.gui.QIntValidator;
 import com.trolltech.qt.gui.QLabel;
@@ -14,7 +13,9 @@ public class SetupScreen1 extends QWidget {
 	
 	QWidget parent;
 	ResourceBundle bundle;
-	GameBoard gb;
+	QLineEdit boardWidth;
+	QLineEdit boardHeight;
+	QLineEdit shipNumber;
 	
 	public SetupScreen1(QWidget parent, ResourceBundle bundle) {
 		super(parent);
@@ -38,12 +39,12 @@ public class SetupScreen1 extends QWidget {
 		QValidator intValidator = new QIntValidator(this);
 		
 		QLabel boardSize = new QLabel(bundle.getString("enterBoardSize"));
-		QLineEdit boardWidth = new QLineEdit("10");
+		this.boardWidth = new QLineEdit("10");
 		boardWidth.setValidator(intValidator);
-		QLineEdit boardHeight = new QLineEdit("10");
+		this.boardHeight = new QLineEdit("10");
 		boardHeight.setValidator(intValidator);
 		QLabel numberShips = new QLabel(bundle.getString("enterNumShips"));
-		QLineEdit shipNumber = new QLineEdit("5");
+		this.shipNumber = new QLineEdit("5");
 		shipNumber.setValidator(intValidator);
 		
 		QPushButton back = new QPushButton(bundle.getString("back"));
@@ -57,9 +58,7 @@ public class SetupScreen1 extends QWidget {
 		menuLayout.addWidget(shipNumber, 2, 2, 1, 2);
 		menuLayout.addWidget(back, 3, 1);
 		menuLayout.addWidget(next, 3, 3);
-		
-		gb = new GameBoard (new Integer(boardWidth.text()), new Integer(boardHeight.text()), new Integer(shipNumber.text()));
-		
+
 		back.clicked.connect(this.parent, "showStartScreen()");
 		next.clicked.connect(this, "showSetupScreen2()");
 		
@@ -69,7 +68,7 @@ public class SetupScreen1 extends QWidget {
 	}
 	
 	public void showSetupScreen2(){
-		((GameStarter) this.parent).showSetupScreen2(gb);
+		((GameStarter) this.parent).showSetupScreen2(new GameBoard (new Integer(boardWidth.text()), new Integer(boardHeight.text()), new Integer(shipNumber.text())));
 	}
 }
 
