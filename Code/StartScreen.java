@@ -3,7 +3,6 @@ import java.util.ResourceBundle;
 
 import com.trolltech.qt.core.Qt.AlignmentFlag;
 import com.trolltech.qt.gui.QAction;
-import com.trolltech.qt.gui.QFont;
 import com.trolltech.qt.gui.QLabel;
 import com.trolltech.qt.gui.QMenu;
 import com.trolltech.qt.gui.QMenuBar;

@@ -1,6 +1,5 @@
 import java.util.ResourceBundle;
 
-import com.trolltech.qt.gui.QFont;
 import com.trolltech.qt.gui.QGridLayout;
 import com.trolltech.qt.gui.QIntValidator;
 import com.trolltech.qt.gui.QLabel;
