@@ -15,12 +15,15 @@ public class SetupScreen2 extends QWidget {
 	
 	QWidget parent;
 	ResourceBundle bundle;
+	GameBoard gb;
 	
-	public SetupScreen2(QWidget parent, ResourceBundle bundle) {
+	public SetupScreen2(QWidget parent, ResourceBundle bundle, GameBoard gb) {
 		super(parent);
 		this.bundle = bundle;
 		this.parent = parent;
 		this.parent.setWindowTitle(bundle.getString("setupScreen") + "2");
+		
+		this.gb = gb;
 		
 		QWidget menu = createMenu(5);
 		
@@ -53,11 +56,15 @@ public class SetupScreen2 extends QWidget {
 		menuLayout.addWidget(play, numberShips + 1, 2);
 		
 		back.clicked.connect(this.parent, "showSetupScreen1()");
-		play.clicked.connect(this.parent, "showBoardScreen()");
+		play.clicked.connect(this, "showBoardScreen()");
 		
 		menu.setLayout(menuLayout);
 		
 		return menu;
+	}
+	
+	public void showBoardScreen(){
+		((GameStarter) this.parent).showBoardScreen(gb);
 	}
 }
 

@@ -136,7 +136,7 @@ public class BattleshipWeek3Tests {
 		assertEquals("Length of Ship ", englishBundle.getString("shipLength"));
 	}
 	
-	Test
+	@Test
 	public void testEnglishMenuText() {
 		assertEquals("Edit", englishBundle.getString("edit"));
 		assertEquals("Change Language", englishBundle.getString("changeLanguage"));

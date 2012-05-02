@@ -16,7 +16,7 @@ import com.trolltech.qt.gui.QMainWindow;
 public class GameStarter extends QMainWindow {
 	
 	public static ResourceBundle bundle;
-
+	
 	/**
 	 * TODO Put here a description of what this method does.
 	 *
@@ -64,12 +64,12 @@ public class GameStarter extends QMainWindow {
 		this.setCentralWidget(new SetupScreen1(this, bundle));
 	}
 	
-	public void showSetupScreen2() {
-		this.setCentralWidget(new SetupScreen2(this, bundle));
+	public void showSetupScreen2(GameBoard gb) {
+		this.setCentralWidget(new SetupScreen2(this, bundle, gb));
 	}
 	
-	public void showBoardScreen() {
-		this.setCentralWidget(new BoardScreen(this, bundle));
+	public void showBoardScreen(GameBoard gb) {
+		this.setCentralWidget(new BoardScreen(this, bundle, gb));
 	}
 	
 	public static void updateBundle(ResourceBundle newBundle) {

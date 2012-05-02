@@ -12,12 +12,15 @@ public class BoardScreen extends QWidget {
 	
 	QWidget parent;
 	ResourceBundle bundle;
+	GameBoard gb;
 	
-	public BoardScreen(QWidget parent, ResourceBundle bundle) {
+	public BoardScreen(QWidget parent, ResourceBundle bundle, GameBoard gb) {
 		super(parent);
 		this.bundle = bundle;
 		this.parent = parent;
 		this.parent.setWindowTitle(bundle.getString("boardScreen"));
+		
+		this.gb = gb;
 		
 		QWidget board1 = createBoard1(10, 10);
 		
