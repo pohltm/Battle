@@ -38,5 +38,5 @@ public class BoardScreen extends QWidget {
 			table.setRowHeight(i, 73);
 		}
 		return table;
-	}
+}
 }
