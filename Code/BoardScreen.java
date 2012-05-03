@@ -5,6 +5,7 @@ import com.trolltech.qt.gui.QGridLayout;
 import com.trolltech.qt.gui.QPaintEvent;
 import com.trolltech.qt.gui.QPainter;
 import com.trolltech.qt.gui.QPushButton;
+import com.trolltech.qt.gui.QTableWidget;
 import com.trolltech.qt.gui.QVBoxLayout;
 import com.trolltech.qt.gui.QWidget;
 
@@ -23,10 +24,13 @@ public class BoardScreen extends QWidget {
 		
 		this.gb = gb;
 		
-		QWidget board1 = createBoard1(10, 10);
+		QTableWidget tableTop = createTable();
+		QTableWidget tableBottom = createTable();
 		
 		QVBoxLayout widgetLayout = new QVBoxLayout();
-		widgetLayout.addWidget(board1);
+		
+		widgetLayout.addWidget(tableTop);
+		widgetLayout.addWidget(tableBottom);
 		
 		this.setLayout(widgetLayout);
 		
@@ -42,6 +46,17 @@ public class BoardScreen extends QWidget {
 		
 		
 		return board1;
+	}
+	
+	public QTableWidget createTable() {
+		QTableWidget table = new QTableWidget(this.gb.getHeight(), gb.getWidth());
+		for (int i = 0; i < table.columnCount(); i++) {
+			table.setColumnWidth(i, (int)(390.0/this.gb.getWidth()));
+		}
+		for (int i = 0; i < table.rowCount(); i++) {
+			table.setRowHeight(i, (int)(354.0/this.gb.getHeight()));
+		}
+		return table;
 	}
 	
 	public void paintEvent(QPaintEvent h) {

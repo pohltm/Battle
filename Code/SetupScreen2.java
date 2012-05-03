@@ -49,13 +49,13 @@ public class SetupScreen2 extends QWidget {
 		}
 		
 		QPushButton back = new QPushButton(bundle.getString("back"));
-		QPushButton play = new QPushButton(bundle.getString("play"));
+		QPushButton next = new QPushButton(bundle.getString("next"));
 		
 		menuLayout.addWidget(back, gb.getNumberOfShips() + 1, 1);
-		menuLayout.addWidget(play, gb.getNumberOfShips() + 1, 2);
+		menuLayout.addWidget(next, gb.getNumberOfShips() + 1, 2);
 		
 		back.clicked.connect(this.parent, "showSetupScreen1()");
-		play.clicked.connect(this, "showPlaceShipScreen()");
+		next.clicked.connect(this, "showPlaceShipScreen()");
 		
 		menu.setLayout(menuLayout);
 		
