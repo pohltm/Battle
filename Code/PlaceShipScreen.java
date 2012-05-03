@@ -25,13 +25,16 @@ public class PlaceShipScreen extends QWidget {
 		QTableWidget table = createTable();
 		
 		QGridLayout widgetLayout = new QGridLayout();
-		widgetLayout.addWidget(table);
+		widgetLayout.addWidget(table, 1, 1, 1, 2);
 		
 		QPushButton back = new QPushButton(bundle.getString("back"));
 		QPushButton play = new QPushButton(bundle.getString("play"));
 		
 		widgetLayout.addWidget(back, 2, 1);
 		widgetLayout.addWidget(play, 2, 2);
+		
+		System.out.println(widgetLayout.columnCount());
+		System.out.println(widgetLayout.rowCount());
 		
 		back.clicked.connect(this, "showSetupScreen2()");
 		play.clicked.connect(this, "showBoardScreen()");
@@ -43,7 +46,6 @@ public class PlaceShipScreen extends QWidget {
 	
 	public QTableWidget createTable() {
 		QTableWidget table = new QTableWidget(this.gb.getHeight(), gb.getWidth());
-		System.out.println(this.gb.getWidth()+" "+this.gb.getHeight());
 		for (int i = 0; i < table.columnCount(); i++) {
 			table.setColumnWidth(i, (int)(780.0/this.gb.getWidth()));
 		}
