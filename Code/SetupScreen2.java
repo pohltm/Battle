@@ -55,15 +55,15 @@ public class SetupScreen2 extends QWidget {
 		menuLayout.addWidget(play, gb.getNumberOfShips() + 1, 2);
 		
 		back.clicked.connect(this.parent, "showSetupScreen1()");
-		play.clicked.connect(this, "showBoardScreen()");
+		play.clicked.connect(this, "showPlaceShipScreen()");
 		
 		menu.setLayout(menuLayout);
 		
 		return menu;
 	}
 	
-	public void showBoardScreen(){
-		((GameStarter) this.parent).showBoardScreen(gb);
+	public void showPlaceShipScreen(){
+		((GameStarter) this.parent).showPlaceShipScreen(gb);
 	}
 }
 

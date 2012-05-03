@@ -88,7 +88,7 @@ public class GameBoard {
 	public boolean checkAndPlaceShips(ArrayList<Ship> ships, String grid) {
 		boolean result = true;;
 		
-		if(ships.size() >= this.numShips){
+		if(ships.size() > this.numShips){
 			return false;
 		}
 		

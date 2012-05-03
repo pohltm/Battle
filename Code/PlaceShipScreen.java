@@ -1,9 +1,9 @@
+
 import java.util.ResourceBundle;
 
-import com.trolltech.qt.gui.QColor;
 import com.trolltech.qt.gui.QGridLayout;
-import com.trolltech.qt.gui.QPaintEvent;
-import com.trolltech.qt.gui.QPainter;
+import com.trolltech.qt.gui.QPushButton;
+import com.trolltech.qt.gui.QTableWidget;
 import com.trolltech.qt.gui.QVBoxLayout;
 import com.trolltech.qt.gui.QWidget;
 
@@ -18,35 +18,46 @@ public class PlaceShipScreen extends QWidget {
 		super(parent);
 		this.bundle = bundle;
 		this.parent = parent;
-		this.parent.setWindowTitle(bundle.getString("boardScreen"));
+		this.parent.setWindowTitle(bundle.getString("placeShipScreen"));
 		
 		this.gb = gb;
 		
-		QWidget board1 = createBoard1(10, 10);
+		QTableWidget table = createTable();
 		
-		QVBoxLayout widgetLayout = new QVBoxLayout();
-		widgetLayout.addWidget(board1);
+		QGridLayout widgetLayout = new QGridLayout();
+		widgetLayout.addWidget(table);
+		
+		QPushButton back = new QPushButton(bundle.getString("back"));
+		QPushButton play = new QPushButton(bundle.getString("play"));
+		
+		widgetLayout.addWidget(back, 2, 1);
+		widgetLayout.addWidget(play, 2, 2);
+		
+		back.clicked.connect(this, "showSetupScreen2()");
+		play.clicked.connect(this, "showBoardScreen()");
 		
 		this.setLayout(widgetLayout);
 		
 		this.show();
 	}
 	
-	public QWidget createBoard1(int width, int height) {
-		QWidget board1 = new QWidget(this);
-		
-		QGridLayout boardLayout = new QGridLayout();
-		
-		board1.setLayout(boardLayout);
-		
-		return board1;
+	public QTableWidget createTable() {
+		QTableWidget table = new QTableWidget(this.gb.getHeight(), gb.getWidth());
+		System.out.println(this.gb.getWidth()+" "+this.gb.getHeight());
+		for (int i = 0; i < table.columnCount(); i++) {
+			table.setColumnWidth(i, (int)(780.0/this.gb.getWidth()));
+		}
+		for (int i = 0; i < table.rowCount(); i++) {
+			table.setRowHeight(i, (int)(708.0/this.gb.getHeight()));
+		}
+		return table;
 	}
 	
-	public void paintEvent(QPaintEvent h) {
-		QPainter painter = new QPainter(this);
-		painter.setPen(QColor.black);
-		painter.drawRect(10, 10, this.width() - 20, this.height() / 2 - 20);
-		painter.setPen(QColor.blue);
-		painter.drawRect(10, this.height() / 2 + 10, this.width() - 20, this.height() / 2 - 20);
+	public void showBoardScreen(){
+		((GameStarter) parent).showBoardScreen(gb);
+	}
+	
+	public void showSetupScreen2(){
+		((GameStarter) parent).showSetupScreen2(gb);
 	}
 }
