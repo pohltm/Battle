@@ -18,7 +18,7 @@ public class BoardScreen extends QWidget {
 	ResourceBundle bundle;
 	GameBoard gb;
 	
-	public BoardScreen(QWidget parent, ResourceBundle bundle, GameBoard gb) {
+	public BoardScreen(QWidget parent, ResourceBundle bundle, GameBoard gb, int[] lengths) {
 		super(parent);
 		this.bundle = bundle;
 		this.parent = parent;
@@ -44,7 +44,7 @@ public class BoardScreen extends QWidget {
 		ships2.add(new Ship(1,1,5,true));
 		gb.checkAndPlaceShips(ships2, "bottom");
 		
-		AI ai =  new AI(this.gb);
+		AI ai =  new AI(this.gb,lengths);
 		ai.placeShips();
 		
 		this.populateTable(tableTop, gb.getTopGrid());

@@ -14,10 +14,12 @@ public class PlaceShipScreen extends QWidget {
 	QWidget parent;
 	ResourceBundle bundle;
 	GameBoard gb;
+	int[] lengths;
 	
-	public PlaceShipScreen(QWidget parent, ResourceBundle bundle, GameBoard gb) {
+	public PlaceShipScreen(QWidget parent, ResourceBundle bundle, GameBoard gb, int[] lengths) {
 		super(parent);
 		this.bundle = bundle;
+		this.lengths = lengths;
 		this.parent = parent;
 		this.parent.setWindowTitle(bundle.getString("placeShipScreen"));
 		
@@ -58,7 +60,7 @@ public class PlaceShipScreen extends QWidget {
 	}
 	
 	public void showBoardScreen(){
-		((GameStarter) parent).showBoardScreen(gb);
+		((GameStarter) parent).showBoardScreen(gb, lengths);
 	}
 	
 	public void showSetupScreen2(){

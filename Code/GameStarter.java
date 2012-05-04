@@ -70,12 +70,12 @@ public class GameStarter extends QMainWindow {
 		this.setCentralWidget(new SetupScreen2(this, bundle, gb));
 	}
 	
-	public void showPlaceShipScreen(GameBoard gb) {
-		this.setCentralWidget(new PlaceShipScreen(this, bundle, gb));
+	public void showPlaceShipScreen(GameBoard gb, int[] lengths) {
+		this.setCentralWidget(new PlaceShipScreen(this, bundle, gb, lengths));
 	}
 	
-	public void showBoardScreen(GameBoard gb) {
-		this.setCentralWidget(new BoardScreen(this, bundle, gb));
+	public void showBoardScreen(GameBoard gb, int[] lengths) {
+		this.setCentralWidget(new BoardScreen(this, bundle, gb, lengths));
 	}
 	
 	public static void updateBundle(ResourceBundle newBundle) {

@@ -137,7 +137,8 @@ public class BattleshipWeek1Tests {
 	
 	@Test
 	public void AIConstructorTests() throws Exception{
-		AI ai = new AI(new GameBoard());
+		int[] blank = {5,4,3,2,1};
+		AI ai = new AI(new GameBoard(), blank);
 		Assert.assertNotNull(ai);
 	}
 	

@@ -65,14 +65,16 @@ public class BattleshipWeek3Tests {
 	@Test
 	public void testThatAIConstructsProperly(){
 		GameBoard gb = new GameBoard();
-		AI ai = new AI(gb);
+		int[] blank = {5,4,3,2,1};
+		AI ai = new AI(gb, blank);
 		Assert.assertNotNull(ai);
 	}
 	
 	@Test
 	public void testThatAIPlacesShips(){
 		GameBoard gb = new GameBoard();
-		AI ai = new AI(gb);
+		int[] blank = {5,4,3,2,1};
+		AI ai = new AI(gb,blank);
 		ai.placeShips();
 		Boolean result = false;
 		
@@ -87,13 +89,14 @@ public class BattleshipWeek3Tests {
 	
 	@Test
 	public void testThatAIShoots(){
-		GameBoard gb = new GameBoard();
+		GameBoard gb = new GameBoard(10,10,3);
 		ArrayList<Ship> ships = new ArrayList<Ship>();
 		ships.add(new Ship(3,3,3,true));
 		ships.add(new Ship(4,6,2,true));
 		ships.add(new Ship(1,1,5,false));
 		gb.checkAndPlaceShips(ships, "Bottom");
-		AI ai = new AI(gb);
+		int[] blank = {3,2,1};
+		AI ai = new AI(gb,blank);
 		ai.placeShips();
 		Boolean result = false;
 		ai.shoot();

@@ -16,6 +16,9 @@ public class GameBoard {
 	private Grid bottomGrid;
 	
 	public GameBoard (int w, int h, int n){
+		if(w<=0 || h<=0 || n<=0){
+			throw new NegativeArraySizeException();
+		}
 		this.width = w;
 		this.height = h;
 		this.numShips = n;

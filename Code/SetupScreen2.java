@@ -15,6 +15,7 @@ public class SetupScreen2 extends QWidget {
 	QWidget parent;
 	ResourceBundle bundle;
 	GameBoard gb;
+	QLineEdit[] lengths;
 	
 	public SetupScreen2(QWidget parent, ResourceBundle bundle, GameBoard gb) {
 		super(parent);
@@ -39,13 +40,14 @@ public class SetupScreen2 extends QWidget {
 		
 		QGridLayout menuLayout = new QGridLayout();
 		QValidator intValidator = new QIntValidator(this);
+		lengths = new QLineEdit[gb.getNumberOfShips()];
 		
 		for(int i = 0; i < gb.getNumberOfShips(); i++) {
 			QLabel shipLength = new QLabel(bundle.getString("shipLength") + (i + 1) + ": ");
-			QLineEdit length = new QLineEdit("2");
-			length.setValidator(intValidator);
+			lengths[i] = new QLineEdit("2");
+			lengths[i].setValidator(intValidator);
 			menuLayout.addWidget(shipLength, i + 1, 1);
-			menuLayout.addWidget(length, i + 1, 2);
+			menuLayout.addWidget(lengths[i], i + 1, 2);
 		}
 		
 		QPushButton back = new QPushButton(bundle.getString("back"));
@@ -63,7 +65,11 @@ public class SetupScreen2 extends QWidget {
 	}
 	
 	public void showPlaceShipScreen(){
-		((GameStarter) this.parent).showPlaceShipScreen(gb);
+		int[] lengths2 = new int[gb.getNumberOfShips()];
+		for(int x=0;x<gb.getNumberOfShips();x++){
+			lengths2[x] = (new Integer(lengths[x].text()));
+		}
+		((GameStarter) this.parent).showPlaceShipScreen(gb,lengths2);
 	}
 }
 

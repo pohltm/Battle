@@ -11,9 +11,11 @@ public class AI {
 	
 	private GameBoard gb;
 	private ArrayList<Ship> ships;
+	private int[] lengths;
 	
-	public AI(GameBoard gb){
+	public AI(GameBoard gb, int[] lengths){
 		this.gb = gb;
+		this.lengths = lengths;
 		this.ships = new ArrayList<Ship>();
 	}
 
@@ -22,12 +24,12 @@ public class AI {
 		int r, c, s;
 		boolean d;
 		this.ships = new ArrayList<Ship>();
-		for(int n=0;n<gb.getNumberOfShips();n++){
-			r = (int)(gb.getHeight()*Math.random());
-			c = (int)(gb.getWidth()*Math.random());
+		for(int n=0;n<this.gb.getNumberOfShips();n++){
+			r = (int)(this.gb.getHeight()*Math.random());
+			c = (int)(this.gb.getWidth()*Math.random());
 			d = Math.random() < 0.5;
-			s = (int)(Math.random()*5.0);
-			ships.add(new Ship(r,c,s,d));
+			s = this.lengths[n];
+			this.ships.add(new Ship(r,c,s,d));
 		}
 		if(!gb.checkAndPlaceShips(this.ships, "top")){
 			this.ships = new ArrayList<Ship>();
