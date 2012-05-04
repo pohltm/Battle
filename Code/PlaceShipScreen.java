@@ -1,11 +1,9 @@
 
 import java.util.ResourceBundle;
 
-import com.trolltech.qt.core.QRect;
 import com.trolltech.qt.gui.QGridLayout;
 import com.trolltech.qt.gui.QPushButton;
 import com.trolltech.qt.gui.QTableWidget;
-import com.trolltech.qt.gui.QVBoxLayout;
 import com.trolltech.qt.gui.QWidget;
 
 

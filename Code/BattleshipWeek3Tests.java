@@ -226,4 +226,21 @@ public class BattleshipWeek3Tests {
 		GameStarter.updateBundle(germanBundle);
 		assertEquals(GameStarter.bundle, germanBundle);
 	}
+	
+	//The user can click next to go forward through the Setup Screens
+	
+	//The user can click back to go backward through the Setup Screens
+	
+	//Boards are displayed as grids
+	
+	//The AI places the correct number of ships
+	
+	//The AI places ships of the correct size
+	
+	//The grids can display the gameboard contents
+	
+	//Invalid gameboard sizes and number of ships are not allowed
+	
+	//Invalid ship sizes are not allowed
+	
 }

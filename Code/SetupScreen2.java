@@ -68,7 +68,7 @@ public class SetupScreen2 extends QWidget {
 		int[] lengths2 = new int[gb.getNumberOfShips()];
 		for(int x=0;x<gb.getNumberOfShips();x++){
 			lengths2[x] = (new Integer(lengths[x].text()));
-			if(lengths2[x] <=0){
+			if(lengths2[x] <=0 || lengths2[x] > this.gb.getWidth() && lengths2[x] > this.gb.getHeight()){
 				throw new NumberFormatException();
 			}
 		}
