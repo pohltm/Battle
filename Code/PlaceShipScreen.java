@@ -36,9 +36,6 @@ public class PlaceShipScreen extends QWidget {
 		widgetLayout.addWidget(back, 2, 1);
 		widgetLayout.addWidget(play, 2, 3);
 		
-		System.out.println(widgetLayout.columnCount());
-		System.out.println(widgetLayout.rowCount());
-		
 		back.clicked.connect(this, "showSetupScreen2()");
 		play.clicked.connect(this, "showBoardScreen()");
 		

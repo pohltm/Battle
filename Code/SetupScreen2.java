@@ -68,6 +68,9 @@ public class SetupScreen2 extends QWidget {
 		int[] lengths2 = new int[gb.getNumberOfShips()];
 		for(int x=0;x<gb.getNumberOfShips();x++){
 			lengths2[x] = (new Integer(lengths[x].text()));
+			if(lengths2[x] <=0){
+				throw new NumberFormatException();
+			}
 		}
 		((GameStarter) this.parent).showPlaceShipScreen(gb,lengths2);
 	}
