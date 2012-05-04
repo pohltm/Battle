@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import com.trolltech.qt.gui.QColor;
@@ -6,6 +7,7 @@ import com.trolltech.qt.gui.QPaintEvent;
 import com.trolltech.qt.gui.QPainter;
 import com.trolltech.qt.gui.QPushButton;
 import com.trolltech.qt.gui.QTableWidget;
+import com.trolltech.qt.gui.QTableWidgetItem;
 import com.trolltech.qt.gui.QVBoxLayout;
 import com.trolltech.qt.gui.QWidget;
 
@@ -26,6 +28,22 @@ public class BoardScreen extends QWidget {
 		
 		QTableWidget tableTop = createTable();
 		QTableWidget tableBottom = createTable();
+		
+		//TODO: THIS IS A TEST, REMOVE THIS WHEN DONE TESTING
+		ArrayList<Ship> ships1 = new ArrayList<Ship>();
+		ships1.add(new Ship(3,3,3,true));
+		ships1.add(new Ship(4,6,2,true));
+		ships1.add(new Ship(1,1,5,false));
+		gb.checkAndPlaceShips(ships1, "top");
+		
+		ArrayList<Ship> ships2 = new ArrayList<Ship>();
+		ships2.add(new Ship(4,4,3,false));
+		ships2.add(new Ship(7,6,2,true));
+		ships2.add(new Ship(1,1,5,true));
+		gb.checkAndPlaceShips(ships2, "bottom");
+		
+		this.populateTable(tableTop, gb.getTopGrid());
+		this.populateTable(tableBottom, gb.getBottomGrid());
 		
 		QVBoxLayout widgetLayout = new QVBoxLayout();
 		
@@ -57,6 +75,21 @@ public class BoardScreen extends QWidget {
 			table.setRowHeight(i, (int)(354.0/this.gb.getHeight()));
 		}
 		return table;
+	}
+	
+	private void populateTable(QTableWidget table, Grid grid){
+		int width = grid.getWidth();
+		int height = grid.getHeight();
+		IGridCell[][] gridCells = grid.getGrid();
+		
+		for(int r = 0; r < height; r++){
+			for(int c = 0; c < width; c++){
+				QTableWidgetItem item = new QTableWidgetItem(gridCells[r][c].toString());
+				table.setItem(r, c, item);
+			}
+		}
+		
+		
 	}
 	
 	public void paintEvent(QPaintEvent h) {

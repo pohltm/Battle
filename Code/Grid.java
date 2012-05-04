@@ -29,7 +29,7 @@ public class Grid {
 	 *
 	 * @return width of the grid
 	 */
-	public Object getWidth() {
+	public int getWidth() {
 		return this.width;
 	}
 
@@ -38,7 +38,7 @@ public class Grid {
 	 *
 	 * @return height of the grid
 	 */
-	public Object getHeight() {
+	public int getHeight() {
 		return this.height;
 	}
 
