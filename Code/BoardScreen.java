@@ -27,14 +27,16 @@ public class BoardScreen extends QWidget {
 		this.gb = gb;
 		
 		QTableWidget tableTop = createTable();
+		tableTop.setFixedSize(390,390);
 		QTableWidget tableBottom = createTable();
+		tableBottom.setFixedSize(390,390);
 		
 		//TODO: THIS IS A TEST, REMOVE THIS WHEN DONE TESTING
-		ArrayList<Ship> ships1 = new ArrayList<Ship>();
-		ships1.add(new Ship(3,3,3,true));
-		ships1.add(new Ship(4,6,2,true));
-		ships1.add(new Ship(1,1,5,false));
-		gb.checkAndPlaceShips(ships1, "top");
+//		ArrayList<Ship> ships1 = new ArrayList<Ship>();
+//		ships1.add(new Ship(3,3,3,true));
+//		ships1.add(new Ship(4,6,2,true));
+//		ships1.add(new Ship(1,1,5,false));
+//		gb.checkAndPlaceShips(ships1, "top");
 		
 		ArrayList<Ship> ships2 = new ArrayList<Ship>();
 		ships2.add(new Ship(4,4,3,false));
@@ -42,13 +44,16 @@ public class BoardScreen extends QWidget {
 		ships2.add(new Ship(1,1,5,true));
 		gb.checkAndPlaceShips(ships2, "bottom");
 		
+		AI ai =  new AI(this.gb);
+		ai.placeShips();
+		
 		this.populateTable(tableTop, gb.getTopGrid());
 		this.populateTable(tableBottom, gb.getBottomGrid());
 		
-		QVBoxLayout widgetLayout = new QVBoxLayout();
+		QGridLayout widgetLayout = new QGridLayout();
 		
-		widgetLayout.addWidget(tableTop);
-		widgetLayout.addWidget(tableBottom);
+		widgetLayout.addWidget(tableTop,1,2);
+		widgetLayout.addWidget(tableBottom,2,2);
 		
 		this.setLayout(widgetLayout);
 		
@@ -69,10 +74,10 @@ public class BoardScreen extends QWidget {
 	public QTableWidget createTable() {
 		QTableWidget table = new QTableWidget(this.gb.getHeight(), gb.getWidth());
 		for (int i = 0; i < table.columnCount(); i++) {
-			table.setColumnWidth(i, (int)(390.0/this.gb.getWidth()));
+			table.setColumnWidth(i, (int)(365.0/((double)(this.gb.getWidth()))));
 		}
 		for (int i = 0; i < table.rowCount(); i++) {
-			table.setRowHeight(i, (int)(354.0/this.gb.getHeight()));
+			table.setRowHeight(i, (int)(365.0/((double)(this.gb.getHeight()))));
 		}
 		return table;
 	}
@@ -92,11 +97,11 @@ public class BoardScreen extends QWidget {
 		
 	}
 	
-	public void paintEvent(QPaintEvent h) {
-		QPainter painter = new QPainter(this);
-		painter.setPen(QColor.black);
-		painter.drawRect(10, 10, this.width() - 20, this.height() / 2 - 20);
-		painter.setPen(QColor.blue);
-		painter.drawRect(10, this.height() / 2 + 10, this.width() - 20, this.height() / 2 - 20);
-	}
+//	public void paintEvent(QPaintEvent h) {
+//		QPainter painter = new QPainter(this);
+//		painter.setPen(QColor.black);
+//		painter.drawRect(10, 10, this.width() - 20, this.height() / 2 - 20);
+//		painter.setPen(QColor.blue);
+//		painter.drawRect(10, this.height() / 2 + 10, this.width() - 20, this.height() / 2 - 20);
+//	}
 }

@@ -21,6 +21,7 @@ public class AI {
 	public void placeShips() {
 		int r, c, s;
 		boolean d;
+		this.ships = new ArrayList<Ship>();
 		for(int n=0;n<gb.getNumberOfShips();n++){
 			r = (int)(gb.getHeight()*Math.random());
 			c = (int)(gb.getWidth()*Math.random());

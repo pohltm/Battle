@@ -20,7 +20,7 @@ public class Grid {
 	public Grid(int w, int h) {
 		this.width = w;
 		this.height = h;
-		this.grid = new IGridCell[w][h];
+		this.grid = new IGridCell[h][w];
 		this.initializeGrid();
 	}
 
@@ -52,8 +52,8 @@ public class Grid {
 	}
 	
 	public void initializeGrid(){
-		for(int i = 0; i < this.width; i++){
-			for(int j = 0; j < this.height; j++){
+		for(int i = 0; i < this.height; i++){
+			for(int j = 0; j < this.width; j++){
 				this.grid[i][j] = new Empty();
 			}
 		}

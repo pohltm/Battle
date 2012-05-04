@@ -1,6 +1,7 @@
 
 import java.util.ResourceBundle;
 
+import com.trolltech.qt.core.QRect;
 import com.trolltech.qt.gui.QGridLayout;
 import com.trolltech.qt.gui.QPushButton;
 import com.trolltech.qt.gui.QTableWidget;
@@ -25,13 +26,13 @@ public class PlaceShipScreen extends QWidget {
 		QTableWidget table = createTable();
 		
 		QGridLayout widgetLayout = new QGridLayout();
-		widgetLayout.addWidget(table, 1, 1, 1, 2);
+		widgetLayout.addWidget(table, 1, 2);
 		
 		QPushButton back = new QPushButton(bundle.getString("back"));
 		QPushButton play = new QPushButton(bundle.getString("play"));
 		
 		widgetLayout.addWidget(back, 2, 1);
-		widgetLayout.addWidget(play, 2, 2);
+		widgetLayout.addWidget(play, 2, 3);
 		
 		System.out.println(widgetLayout.columnCount());
 		System.out.println(widgetLayout.rowCount());
@@ -40,6 +41,7 @@ public class PlaceShipScreen extends QWidget {
 		play.clicked.connect(this, "showBoardScreen()");
 		
 		this.setLayout(widgetLayout);
+		table.setFixedSize(500,500);
 		
 		this.show();
 	}
@@ -47,10 +49,10 @@ public class PlaceShipScreen extends QWidget {
 	public QTableWidget createTable() {
 		QTableWidget table = new QTableWidget(this.gb.getHeight(), gb.getWidth());
 		for (int i = 0; i < table.columnCount(); i++) {
-			table.setColumnWidth(i, (int)(780.0/this.gb.getWidth()));
+			table.setColumnWidth(i, (int)(475.0/((double)this.gb.getWidth())));
 		}
 		for (int i = 0; i < table.rowCount(); i++) {
-			table.setRowHeight(i, (int)(708.0/this.gb.getHeight()));
+			table.setRowHeight(i, (int)(475.0/((double)this.gb.getHeight())));
 		}
 		return table;
 	}
