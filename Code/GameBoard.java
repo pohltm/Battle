@@ -89,18 +89,14 @@ public class GameBoard {
 	 * @return whether placement is valid
 	 */
 	public boolean checkAndPlaceShips(ArrayList<Ship> ships, String grid) {
-		boolean result = true;;
+		boolean result = true;
 		
-		if(ships.size() > this.numShips){
+		if(ships.size() != this.numShips){
 			return false;
 		}
 		
 		for(Ship s : ships){
 			result = result && shipFits(s);
-			
-			if(!result){
-				return result;
-			}
 			
 			if(grid.equals("top")){
 				result = result && this.getTopGrid().place(s);
