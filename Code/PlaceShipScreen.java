@@ -1,10 +1,13 @@
 
+import java.util.List;
 import java.util.ResourceBundle;
 
 import com.trolltech.qt.gui.QGridLayout;
 import com.trolltech.qt.gui.QPushButton;
 import com.trolltech.qt.gui.QTableWidget;
+import com.trolltech.qt.gui.QTableWidgetItem;
 import com.trolltech.qt.gui.QWidget;
+import com.trolltech.qt.gui.QAbstractItemView.EditTrigger;
 
 
 public class PlaceShipScreen extends QWidget {
@@ -13,6 +16,7 @@ public class PlaceShipScreen extends QWidget {
 	ResourceBundle bundle;
 	GameBoard gb;
 	int[] lengths;
+	QTableWidget table;
 	
 	public PlaceShipScreen(QWidget parent, ResourceBundle bundle, GameBoard gb, int[] lengths) {
 		super(parent);
@@ -23,7 +27,7 @@ public class PlaceShipScreen extends QWidget {
 		
 		this.gb = gb;
 		
-		QTableWidget table = createTable();
+		this.table = createTable();
 		
 		QGridLayout widgetLayout = new QGridLayout();
 		widgetLayout.addWidget(table, 1, 2);
@@ -51,7 +55,16 @@ public class PlaceShipScreen extends QWidget {
 		for (int i = 0; i < table.rowCount(); i++) {
 			table.setRowHeight(i, (int)(475.0/((double)this.gb.getHeight())));
 		}
+		table.setEditTriggers(EditTrigger.NoEditTriggers);
+//		table.cellClicked.connect(this, "thisOne()");
+		table.itemSelectionChanged.connect(this, "thisOne()");
 		return table;
+	}
+	
+	public void thisOne() {
+		List<QTableWidgetItem> cellsSelected = this.table.selectedItems();
+		System.out.println(cellsSelected.toString());
+		this.table.selectedRanges();
 	}
 	
 	public void showBoardScreen(){

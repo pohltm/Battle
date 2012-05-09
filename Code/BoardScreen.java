@@ -1,15 +1,12 @@
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import com.trolltech.qt.gui.QColor;
 import com.trolltech.qt.gui.QGridLayout;
-import com.trolltech.qt.gui.QPaintEvent;
-import com.trolltech.qt.gui.QPainter;
-import com.trolltech.qt.gui.QPushButton;
 import com.trolltech.qt.gui.QTableWidget;
 import com.trolltech.qt.gui.QTableWidgetItem;
-import com.trolltech.qt.gui.QVBoxLayout;
 import com.trolltech.qt.gui.QWidget;
+import com.trolltech.qt.gui.QAbstractItemView.EditTrigger;
+import com.trolltech.qt.gui.QAbstractItemView.SelectionMode;
 
 
 public class BoardScreen extends QWidget {
@@ -17,6 +14,7 @@ public class BoardScreen extends QWidget {
 	QWidget parent;
 	ResourceBundle bundle;
 	GameBoard gb;
+	QTableWidget tableTop;
 	
 	public BoardScreen(QWidget parent, ResourceBundle bundle, GameBoard gb, int[] lengths) {
 		super(parent);
@@ -26,7 +24,7 @@ public class BoardScreen extends QWidget {
 		
 		this.gb = gb;
 		
-		QTableWidget tableTop = createTable();
+		this.tableTop = createTable();
 		tableTop.setFixedSize(390,390);
 		QTableWidget tableBottom = createTable();
 		tableBottom.setFixedSize(390,390);
@@ -60,17 +58,6 @@ public class BoardScreen extends QWidget {
 		this.show();
 	}
 	
-	public QWidget createBoard1(int width, int height) {
-		QWidget board1 = new QWidget(this);
-		
-		QGridLayout boardLayout = new QGridLayout();
-		
-		board1.setLayout(boardLayout);
-		
-		
-		return board1;
-	}
-	
 	public QTableWidget createTable() {
 		QTableWidget table = new QTableWidget(this.gb.getHeight(), gb.getWidth());
 		for (int i = 0; i < table.columnCount(); i++) {
@@ -79,7 +66,14 @@ public class BoardScreen extends QWidget {
 		for (int i = 0; i < table.rowCount(); i++) {
 			table.setRowHeight(i, (int)(365.0/((double)(this.gb.getHeight()))));
 		}
+		table.setEditTriggers(EditTrigger.NoEditTriggers);
+		table.setSelectionMode(SelectionMode.SingleSelection);
+		table.cellClicked.connect(this, "shotFired(int, int)");
 		return table;
+	}
+	
+	public void shotFired(int row, int col) {
+		System.out.printf("this row %d and this col %d.\n", row, col);
 	}
 	
 	private void populateTable(QTableWidget table, Grid grid){
@@ -93,15 +87,5 @@ public class BoardScreen extends QWidget {
 				table.setItem(r, c, item);
 			}
 		}
-		
-		
 	}
-	
-//	public void paintEvent(QPaintEvent h) {
-//		QPainter painter = new QPainter(this);
-//		painter.setPen(QColor.black);
-//		painter.drawRect(10, 10, this.width() - 20, this.height() / 2 - 20);
-//		painter.setPen(QColor.blue);
-//		painter.drawRect(10, this.height() / 2 + 10, this.width() - 20, this.height() / 2 - 20);
-//	}
 }
