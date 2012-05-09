@@ -14,7 +14,6 @@ public class BoardScreen extends QWidget {
 	QWidget parent;
 	ResourceBundle bundle;
 	GameBoard gb;
-	QTableWidget tableTop;
 	
 	public BoardScreen(QWidget parent, ResourceBundle bundle, GameBoard gb, int[] lengths) {
 		super(parent);
@@ -24,7 +23,7 @@ public class BoardScreen extends QWidget {
 		
 		this.gb = gb;
 		
-		this.tableTop = createTable();
+		QTableWidget tableTop = createTable();
 		tableTop.setFixedSize(390,390);
 		QTableWidget tableBottom = createTable();
 		tableBottom.setFixedSize(390,390);
