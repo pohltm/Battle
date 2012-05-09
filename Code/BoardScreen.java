@@ -48,8 +48,8 @@ public class BoardScreen extends QWidget {
 		AI ai =  new AI(this.gb,lengths);
 		ai.placeShips();
 		
-		this.populateTopTable(tableTop, gb.getTopGrid());
-		this.populateTable(tableBottom, gb.getBottomGrid());
+		this.populateTopTable(tableTop);
+		this.populateBottomTable(tableBottom);
 		
 		QGridLayout widgetLayout = new QGridLayout();
 		
@@ -77,16 +77,14 @@ public class BoardScreen extends QWidget {
 	
 	public void shotFired(int row, int col) {
 		System.out.printf("this row %d and this col %d.\n", row, col);
-//		QTableWidgetItem cell = this.tableTop.itemAt(col * this.tableTop.columnWidth(col), row * this.tableTop.rowHeight(row));
-//		cell.setBackground(new QBrush(QColor.red));
 		gb.getTopGrid().shoot(row, col);
-		populateTopTable(tableTop, gb.getTopGrid());
+		populateTopTable(tableTop);
 	}
 	
-	private void populateTopTable(QTableWidget table, Grid grid){
-		int width = grid.getWidth();
-		int height = grid.getHeight();
-		IGridCell[][] gridCells = grid.getGrid();
+	private void populateTopTable(QTableWidget table){
+		int width = gb.getTopGrid().getWidth();
+		int height = gb.getTopGrid().getHeight();
+		IGridCell[][] gridCells = gb.getTopGrid().getGrid();
 		
 		for(int r = 0; r < height; r++){
 			for(int c = 0; c < width; c++){
@@ -97,10 +95,10 @@ public class BoardScreen extends QWidget {
 		}
 	}
 	
-	private void populateTable(QTableWidget table, Grid grid){
-		int width = grid.getWidth();
-		int height = grid.getHeight();
-		IGridCell[][] gridCells = grid.getGrid();
+	private void populateBottomTable(QTableWidget table){
+		int width = gb.getBottomGrid().getWidth();
+		int height = gb.getBottomGrid().getHeight();
+		IGridCell[][] gridCells = gb.getBottomGrid().getGrid();
 		
 		for(int r = 0; r < height; r++){
 			for(int c = 0; c < width; c++){
