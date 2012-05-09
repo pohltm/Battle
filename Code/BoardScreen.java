@@ -1,12 +1,15 @@
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import com.trolltech.qt.gui.QBrush;
+import com.trolltech.qt.gui.QColor;
 import com.trolltech.qt.gui.QGridLayout;
 import com.trolltech.qt.gui.QTableWidget;
 import com.trolltech.qt.gui.QTableWidgetItem;
 import com.trolltech.qt.gui.QWidget;
 import com.trolltech.qt.gui.QAbstractItemView.EditTrigger;
 import com.trolltech.qt.gui.QAbstractItemView.SelectionMode;
+import com.trolltech.qt.gui.QPalette.ColorRole;
 
 
 public class BoardScreen extends QWidget {
@@ -14,6 +17,7 @@ public class BoardScreen extends QWidget {
 	QWidget parent;
 	ResourceBundle bundle;
 	GameBoard gb;
+	QTableWidget tableTop;
 	
 	public BoardScreen(QWidget parent, ResourceBundle bundle, GameBoard gb, int[] lengths) {
 		super(parent);
@@ -23,7 +27,7 @@ public class BoardScreen extends QWidget {
 		
 		this.gb = gb;
 		
-		QTableWidget tableTop = createTable();
+		this.tableTop = createTable();
 		tableTop.setFixedSize(390,390);
 		QTableWidget tableBottom = createTable();
 		tableBottom.setFixedSize(390,390);
@@ -44,7 +48,7 @@ public class BoardScreen extends QWidget {
 		AI ai =  new AI(this.gb,lengths);
 		ai.placeShips();
 		
-		this.populateTable(tableTop, gb.getTopGrid());
+		this.populateTopTable(tableTop, gb.getTopGrid());
 		this.populateTable(tableBottom, gb.getBottomGrid());
 		
 		QGridLayout widgetLayout = new QGridLayout();
@@ -73,6 +77,24 @@ public class BoardScreen extends QWidget {
 	
 	public void shotFired(int row, int col) {
 		System.out.printf("this row %d and this col %d.\n", row, col);
+//		QTableWidgetItem cell = this.tableTop.itemAt(col * this.tableTop.columnWidth(col), row * this.tableTop.rowHeight(row));
+//		cell.setBackground(new QBrush(QColor.red));
+		gb.getTopGrid().shoot(row, col);
+		populateTopTable(tableTop, gb.getTopGrid());
+	}
+	
+	private void populateTopTable(QTableWidget table, Grid grid){
+		int width = grid.getWidth();
+		int height = grid.getHeight();
+		IGridCell[][] gridCells = grid.getGrid();
+		
+		for(int r = 0; r < height; r++){
+			for(int c = 0; c < width; c++){
+				String val = gridCells[r][c] instanceof ShipCell ? new Empty().toString() : gridCells[r][c].toString();
+				QTableWidgetItem item = new QTableWidgetItem(val);
+				table.setItem(r, c, item);
+			}
+		}
 	}
 	
 	private void populateTable(QTableWidget table, Grid grid){
