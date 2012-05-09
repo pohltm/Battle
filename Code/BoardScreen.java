@@ -9,7 +9,6 @@ import com.trolltech.qt.gui.QTableWidgetItem;
 import com.trolltech.qt.gui.QWidget;
 import com.trolltech.qt.gui.QAbstractItemView.EditTrigger;
 import com.trolltech.qt.gui.QAbstractItemView.SelectionMode;
-import com.trolltech.qt.gui.QPalette.ColorRole;
 
 
 public class BoardScreen extends QWidget {
@@ -76,7 +75,6 @@ public class BoardScreen extends QWidget {
 	}
 	
 	public void shotFired(int row, int col) {
-		System.out.printf("this row %d and this col %d.\n", row, col);
 		gb.getTopGrid().shoot(row, col);
 		populateTopTable(tableTop);
 	}
@@ -90,6 +88,13 @@ public class BoardScreen extends QWidget {
 			for(int c = 0; c < width; c++){
 				String val = gridCells[r][c] instanceof ShipCell ? new Empty().toString() : gridCells[r][c].toString();
 				QTableWidgetItem item = new QTableWidgetItem(val);
+				if (val.equals("H")) {
+					item.setBackground(new QBrush(QColor.red));
+				} else if (val.equals("M")) {
+					item.setBackground(new QBrush(QColor.white));
+				} else {
+					item.setBackground(new QBrush(new QColor(0, 154, 255)));
+				}
 				table.setItem(r, c, item);
 			}
 		}
