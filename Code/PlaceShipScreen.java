@@ -24,7 +24,7 @@ public class PlaceShipScreen extends QWidget {
 	
 	public PlaceShipScreen(QWidget parent, ResourceBundle bundle, GameBoard gb, int[] lengths) {
 		super(parent);
-		this.shipNum = 1;
+		this.shipNum = 0;
 		this.bundle = bundle;
 		this.lengths = lengths;
 		this.parent = parent;
@@ -81,6 +81,9 @@ public class PlaceShipScreen extends QWidget {
 	public void place1(int r, int c){
 		ships.add(new Ship(r,c,lengths[shipNum],horiz));
 		System.out.printf("row %d and column %d \n",r, c);
+		if(shipNum<lengths.length){
+			shipNum++;
+		}
 	}
 	
 	public void play(){
