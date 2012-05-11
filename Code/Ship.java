@@ -11,6 +11,8 @@ public class Ship {
 	private int r;
 	private int size;
 	private boolean horizontal;
+	private int hits;
+	private boolean sunk;
 	
 	/**
 	 * TODO Put here a description of what this constructor does.
@@ -23,6 +25,8 @@ public class Ship {
 		this.r = r;
 		this.size = s;
 		this.horizontal = horizontal;
+		this.hits = 0;
+		this.sunk = false;
 	}
 
 	/**
@@ -61,4 +65,33 @@ public class Ship {
 		return this.horizontal;
 	}
 
+	public boolean shootShip(int row, int col)
+	{
+		if(horizontal)
+		{
+			if(this.r == row && this.c <= col && this.c + size > col)
+			{
+				this.hits++;
+				return true;
+			}
+		}
+		else
+		{
+			if(this.c == col && this.r <= row && this.r + size > row)
+			{
+				this.hits++;
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean justSunk(){
+		return this.hits == this.size && !this.sunk;
+	}
+	
+	public void setSunk(boolean s){
+		this.sunk = s;
+	}
+	
 }

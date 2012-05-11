@@ -4,6 +4,7 @@ import java.util.ResourceBundle;
 import com.trolltech.qt.gui.QBrush;
 import com.trolltech.qt.gui.QColor;
 import com.trolltech.qt.gui.QGridLayout;
+import com.trolltech.qt.gui.QMessageBox;
 import com.trolltech.qt.gui.QTableWidget;
 import com.trolltech.qt.gui.QTableWidgetItem;
 import com.trolltech.qt.gui.QWidget;
@@ -75,8 +76,14 @@ public class BoardScreen extends QWidget {
 	}
 	
 	public void shotFired(int row, int col) {
-		gb.getTopGrid().shoot(row, col);
+		if(gb.shootTop(row, col)){
+			QMessageBox sunkShip = new QMessageBox();
+			sunkShip.setWindowTitle("You sunk a ship!");
+			sunkShip.setText("You sunk a ship! Good job!");
+			sunkShip.exec();
+		}
 		populateTopTable(tableTop);
+		
 	}
 	
 	private void populateTopTable(QTableWidget table){

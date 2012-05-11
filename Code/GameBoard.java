@@ -14,6 +14,8 @@ public class GameBoard {
 	private int numShips;
 	private Grid topGrid;
 	private Grid bottomGrid;
+	private ArrayList<Ship> topShips;
+	private ArrayList<Ship> bottomShips;
 	
 	public GameBoard (int w, int h, int n){
 		if(w<=0 || h<=0 || n<=0){
@@ -23,6 +25,8 @@ public class GameBoard {
 		this.height = h;
 		this.numShips = n;
 		this.makeGrids();
+		this.topShips = new ArrayList<Ship>();
+		this.bottomShips = new ArrayList<Ship>();
 	}
 	
 	public GameBoard (){
@@ -100,17 +104,21 @@ public class GameBoard {
 			
 			if(grid.equals("top")){
 				result = result && this.getTopGrid().place(s);
+				this.topShips.add(s);
 			}
 			else{
 				result = result && this.getBottomGrid().place(s);
+				this.bottomShips.add(s);
 			}
 			
 			if(!result){
 				if(grid.equals("top")){
 					this.makeTopGrid();
+					this.topShips = new ArrayList<Ship>();
 				}
 				else{
 					this.makeBottomGrid();
+					this.bottomShips = new ArrayList<Ship>();
 				}
 				return result;
 			}
@@ -135,5 +143,16 @@ public class GameBoard {
 		return (this.bottomGrid.isEmpty() && this.topGrid.isEmpty());
 	}
 	
-	
+	public boolean shootTop(int row, int col){
+		boolean ret = false;
+		this.topGrid.shoot(row, col);
+		for (Ship s : this.topShips){
+			s.shootShip(row, col);
+			if(s.justSunk()){
+				s.setSunk(true);
+				ret = true;
+			}
+		}
+		return ret;
+	}
 }
