@@ -78,6 +78,10 @@ public class GameStarter extends QMainWindow {
 		this.setCentralWidget(new BoardScreen(this, bundle, gb, lengths));
 	}
 	
+	public void showEndScreen(boolean win){
+		this.setCentralWidget(new EndScreen(this,bundle, win));
+	}
+	
 	public static void updateBundle(ResourceBundle newBundle) {
 		bundle = newBundle;
 	}

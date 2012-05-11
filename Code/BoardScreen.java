@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import com.trolltech.qt.gui.QBrush;
@@ -18,6 +17,8 @@ public class BoardScreen extends QWidget {
 	ResourceBundle bundle;
 	GameBoard gb;
 	QTableWidget tableTop;
+	QTableWidget tableBottom;
+	AI ai;
 	
 	public BoardScreen(QWidget parent, ResourceBundle bundle, GameBoard gb, int[] lengths) {
 		super(parent);
@@ -29,23 +30,10 @@ public class BoardScreen extends QWidget {
 		
 		this.tableTop = createTable();
 		tableTop.setFixedSize(390,390);
-		QTableWidget tableBottom = createTable();
+		this.tableBottom = createTable();
 		tableBottom.setFixedSize(390,390);
 		
-		//TODO: THIS IS A TEST, REMOVE THIS WHEN DONE TESTING
-//		ArrayList<Ship> ships1 = new ArrayList<Ship>();
-//		ships1.add(new Ship(3,3,3,true));
-//		ships1.add(new Ship(4,6,2,true));
-//		ships1.add(new Ship(1,1,5,false));
-//		gb.checkAndPlaceShips(ships1, "top");
-		
-		ArrayList<Ship> ships2 = new ArrayList<Ship>();
-		ships2.add(new Ship(4,4,3,false));
-		ships2.add(new Ship(7,6,2,true));
-		ships2.add(new Ship(1,1,5,true));
-		gb.checkAndPlaceShips(ships2, "bottom");
-		
-		AI ai =  new AI(this.gb,lengths);
+		ai =  new AI(this.gb,lengths);
 		ai.placeShips();
 		
 		this.populateTopTable(tableTop);
@@ -76,15 +64,39 @@ public class BoardScreen extends QWidget {
 	}
 	
 	public void shotFired(int row, int col) {
-		if(gb.shootTop(row, col)){
-			QMessageBox sunkShip = new QMessageBox();
-			sunkShip.setWindowTitle("You sunk a ship!");
-			sunkShip.setText("You sunk a ship! Good job!");
-			sunkShip.exec();
+		if(this.gb.checkShotTop(row, col)){
+			if(gb.shootTop(row, col)){
+				if(gb.playerWon()){
+					showEndScreen(true);
+				}
+				else{
+					QMessageBox sunkShip = new QMessageBox();
+					sunkShip.setWindowTitle(bundle.getString("sunkShipTitle"));
+					sunkShip.setText(bundle.getString("sunkShipText"));
+					sunkShip.exec();
+					populateTopTable(tableTop);
+				}
+			}
+			else{
+				populateTopTable(tableTop);
+				ai.shoot();
+				if(gb.AIWon()){
+					
+					showEndScreen(false);
+				}
+				else{
+					populateBottomTable(tableBottom);
+				}
+			}
 		}
-		populateTopTable(tableTop);
-		
+		else{
+			QMessageBox overkill = new QMessageBox();
+			overkill.setWindowTitle(bundle.getString("overkillTitle"));
+			overkill.setText(bundle.getString("overkillText"));
+			overkill.exec();
+		}
 	}
+	
 	
 	private void populateTopTable(QTableWidget table){
 		int width = gb.getTopGrid().getWidth();
@@ -114,9 +126,23 @@ public class BoardScreen extends QWidget {
 		
 		for(int r = 0; r < height; r++){
 			for(int c = 0; c < width; c++){
-				QTableWidgetItem item = new QTableWidgetItem(gridCells[r][c].toString());
+				String val = gridCells[r][c].toString();
+				QTableWidgetItem item = new QTableWidgetItem(val);
+				if (val.equals("H")) {
+					item.setBackground(new QBrush(QColor.red));
+				} else if (val.equals("M")) {
+					item.setBackground(new QBrush(QColor.white));
+				} else if (val.equals("S")){
+					item.setBackground(new QBrush(QColor.gray));
+				} else{
+					item.setBackground(new QBrush(new QColor(0, 154, 255)));
+				}
 				table.setItem(r, c, item);
 			}
 		}
+	}
+	
+	public void showEndScreen(boolean win){
+		((GameStarter) parent).showEndScreen(win);
 	}
 }

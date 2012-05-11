@@ -143,10 +143,52 @@ public class GameBoard {
 		return (this.bottomGrid.isEmpty() && this.topGrid.isEmpty());
 	}
 	
+	public boolean playerWon(){
+		boolean ret = true;
+		for (Ship s : this.topShips){
+			ret = ret && s.isSunk();
+		}
+		return ret;
+	}
+	
+	public boolean AIWon(){
+		boolean ret = true;
+		for (Ship s : this.bottomShips){
+			ret = ret && s.isSunk();
+		}
+		return ret;
+	}
+	
+	public boolean checkShotTop(int row, int col)
+	{
+		return this.topGrid.getGrid()[row][col] instanceof Empty || this.topGrid.getGrid()[row][col] instanceof ShipCell;
+	}
+	
+	public boolean checkShotBottom(int row, int col)
+	{
+		return this.bottomGrid.getGrid()[row][col] instanceof Empty || this.bottomGrid.getGrid()[row][col] instanceof ShipCell;
+	}
+	
+	
 	public boolean shootTop(int row, int col){
 		boolean ret = false;
 		this.topGrid.shoot(row, col);
 		for (Ship s : this.topShips){
+			s.shootShip(row, col);
+			if(s.justSunk()){
+				s.setSunk(true);
+				ret = true;
+			}
+		}
+		return ret;
+	}
+	
+	public boolean shootBottom(int row, int col){
+		boolean ret = false;
+		if(!this.bottomGrid.shoot(row, col)){
+			return true;
+		}
+		for(Ship s : this.bottomShips){
 			s.shootShip(row, col);
 			if(s.justSunk()){
 				s.setSunk(true);

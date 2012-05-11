@@ -3,11 +3,14 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import com.trolltech.qt.gui.QAbstractItemView.SelectionMode;
+import com.trolltech.qt.gui.QBrush;
 import com.trolltech.qt.gui.QCheckBox;
+import com.trolltech.qt.gui.QColor;
 import com.trolltech.qt.gui.QGridLayout;
 import com.trolltech.qt.gui.QMessageBox;
 import com.trolltech.qt.gui.QPushButton;
 import com.trolltech.qt.gui.QTableWidget;
+import com.trolltech.qt.gui.QTableWidgetItem;
 import com.trolltech.qt.gui.QWidget;
 import com.trolltech.qt.gui.QAbstractItemView.EditTrigger;
 
@@ -21,6 +24,7 @@ public class PlaceShipScreen extends QWidget {
 	int[] lengths;
 	boolean horiz;
 	ArrayList<Ship> ships;
+	QTableWidget table;
 	
 	public PlaceShipScreen(QWidget parent, ResourceBundle bundle, GameBoard gb, int[] lengths) {
 		super(parent);
@@ -34,7 +38,7 @@ public class PlaceShipScreen extends QWidget {
 		
 		this.gb = gb;
 		
-		QTableWidget table = createTable();
+		table = createTable();
 		
 		QGridLayout widgetLayout = new QGridLayout();
 		widgetLayout.addWidget(table, 1, 2);
@@ -80,21 +84,32 @@ public class PlaceShipScreen extends QWidget {
 	
 	public void place1(int r, int c){
 		ships.add(new Ship(r,c,lengths[shipNum],horiz));
-		System.out.printf("row %d and column %d \n",r, c);
-		if(shipNum<lengths.length){
+		if(horiz){
+			for(int col = c; col < c+lengths[shipNum];col++){
+				QTableWidgetItem item = new QTableWidgetItem("S");
+				item.setBackground(new QBrush(QColor.gray));
+				table.setItem(r, col, item);
+			}
+		}else{
+			for(int row = r; row < r+lengths[shipNum]; row++){
+				QTableWidgetItem item = new QTableWidgetItem("S");
+				item.setBackground(new QBrush(QColor.gray));
+				table.setItem(row, c, item);
+			}
+		}
+		if(shipNum<lengths.length-1){
 			shipNum++;
 		}
 	}
 	
 	public void play(){
 		if(gb.checkAndPlaceShips(ships, "bottom")){
-			System.out.println(gb.toString());
 			((GameStarter) parent).showBoardScreen(gb, lengths);
 		}
 		else{
 			QMessageBox mess = new QMessageBox();
-			mess.setWindowTitle("Error");
-			mess.setText("Improper Placement\n Try again");
+			mess.setWindowTitle(bundle.getString("placeErrorTitle"));
+			mess.setText(bundle.getString("placeErrorText"));
 			mess.exec();
 			((GameStarter) this.parent).showPlaceShipScreen(gb,lengths);
 		}

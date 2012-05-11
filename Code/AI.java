@@ -39,9 +39,9 @@ public class AI {
 
 
 	public void shoot() {
-		int r = (int) Math.random()*gb.getHeight();
-		int c = (int) Math.random()*gb.getWidth();
-		if(gb.getBottomGrid().shoot(r, c)){
+		int r = (int) (Math.random()*((double)gb.getHeight()));
+		int c = (int) (Math.random()*((double)gb.getWidth()));
+		if(gb.shootBottom(r, c)){
 			this.shoot();
 		}
 	}

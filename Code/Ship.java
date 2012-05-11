@@ -28,6 +28,15 @@ public class Ship {
 		this.hits = 0;
 		this.sunk = false;
 	}
+	
+	/**
+	 * TODO Put here a description of what this method does.
+	 *
+	 * @return size of the ship
+	 */
+	public boolean isSunk() {
+		return this.sunk;
+	}
 
 	/**
 	 * TODO Put here a description of what this method does.
