@@ -28,9 +28,9 @@ public class BoardScreen extends QWidget {
 		
 		this.gb = gb;
 		
-		this.tableTop = createTable();
+		this.tableTop = createTable(true);
 		tableTop.setFixedSize(390,390);
-		this.tableBottom = createTable();
+		this.tableBottom = createTable(false);
 		tableBottom.setFixedSize(390,390);
 		
 		ai =  new AI(this.gb,lengths);
@@ -49,7 +49,7 @@ public class BoardScreen extends QWidget {
 		this.show();
 	}
 	
-	public QTableWidget createTable() {
+	public QTableWidget createTable(boolean top) {
 		QTableWidget table = new QTableWidget(this.gb.getHeight(), gb.getWidth());
 		for (int i = 0; i < table.columnCount(); i++) {
 			table.setColumnWidth(i, (int)(365.0/((double)(this.gb.getWidth()))));
@@ -59,7 +59,11 @@ public class BoardScreen extends QWidget {
 		}
 		table.setEditTriggers(EditTrigger.NoEditTriggers);
 		table.setSelectionMode(SelectionMode.SingleSelection);
-		table.cellClicked.connect(this, "shotFired(int, int)");
+		if(top){
+			table.cellClicked.connect(this, "shotFired(int, int)");
+		}else{
+			table.setSelectionMode(SelectionMode.NoSelection);
+		}
 		return table;
 	}
 	
@@ -105,7 +109,7 @@ public class BoardScreen extends QWidget {
 		
 		for(int r = 0; r < height; r++){
 			for(int c = 0; c < width; c++){
-				String val = gridCells[r][c] instanceof ShipCell ? new Empty().toString() : gridCells[r][c].toString();
+				String val = gridCells[r][c] instanceof ShipCell ? new Empty(r, c).toString() : gridCells[r][c].toString();
 				QTableWidgetItem item = new QTableWidgetItem(val);
 				if (val.equals("H")) {
 					item.setBackground(new QBrush(QColor.red));

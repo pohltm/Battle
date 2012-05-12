@@ -54,7 +54,7 @@ public class Grid {
 	public void initializeGrid(){
 		for(int i = 0; i < this.height; i++){
 			for(int j = 0; j < this.width; j++){
-				this.grid[i][j] = new Empty();
+				this.grid[i][j] = new Empty(i, j);
 			}
 		}
 	}

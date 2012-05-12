@@ -183,18 +183,24 @@ public class GameBoard {
 		return ret;
 	}
 	
-	public boolean shootBottom(int row, int col){
-		boolean ret = false;
+	public String shootBottom(int row, int col){
+		if(row<0 || col<0 || row>=this.height || col>=this.width){
+			return "Invalid";
+		}
 		if(!this.bottomGrid.shoot(row, col)){
-			return true;
+			return "Invalid";
 		}
 		for(Ship s : this.bottomShips){
 			s.shootShip(row, col);
 			if(s.justSunk()){
 				s.setSunk(true);
-				ret = true;
+				return "Sink";
 			}
 		}
-		return ret;
+		if(this.bottomGrid.getGrid()[row][col] instanceof Hit){
+			return "Hit";
+		}else{
+			return "Miss";
+		}
 	}
 }

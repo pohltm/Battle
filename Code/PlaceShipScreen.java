@@ -83,21 +83,28 @@ public class PlaceShipScreen extends QWidget {
 	}
 	
 	public void place1(int r, int c){
-		ships.add(new Ship(r,c,lengths[shipNum],horiz));
-		if(horiz){
-			for(int col = c; col < c+lengths[shipNum];col++){
-				QTableWidgetItem item = new QTableWidgetItem("S");
-				item.setBackground(new QBrush(QColor.gray));
-				table.setItem(r, col, item);
+		try{
+			ships.add(new Ship(r,c,lengths[shipNum],horiz));
+			if(horiz){
+				for(int col = c; col < c+lengths[shipNum];col++){
+					QTableWidgetItem item = new QTableWidgetItem("S");
+					item.setBackground(new QBrush(QColor.gray));
+					table.setItem(r, col, item);
+				}
+			}else{
+				for(int row = r; row < r+lengths[shipNum]; row++){
+					QTableWidgetItem item = new QTableWidgetItem("S");
+					item.setBackground(new QBrush(QColor.gray));
+					table.setItem(row, c, item);
+				}
 			}
-		}else{
-			for(int row = r; row < r+lengths[shipNum]; row++){
-				QTableWidgetItem item = new QTableWidgetItem("S");
-				item.setBackground(new QBrush(QColor.gray));
-				table.setItem(row, c, item);
-			}
+		}catch(ArrayIndexOutOfBoundsException e){
+			QMessageBox overplay = new QMessageBox();
+			overplay.setWindowTitle(bundle.getString("placeTooManyTitle"));
+			overplay.setText(bundle.getString("placeTooManyText"));
+			overplay.exec();
 		}
-		if(shipNum<lengths.length-1){
+		if(shipNum<lengths.length){
 			shipNum++;
 		}
 	}
