@@ -35,7 +35,7 @@ public class BattleshipWeek3Tests {
 	
 	@Test
 	public void testThatMakesSureShipsCanBeAddedUsingMultipleCallsToCheckAndPlaceShips(){
-		GameBoard gb = new GameBoard(10,10,2);
+		GameBoard gb = new GameBoard(10,10,1);
 		ArrayList<Ship> ships = new ArrayList<Ship>();
 		ships.add(new Ship(3,3,3,true));
 		Assert.assertTrue(gb.checkAndPlaceShips(ships, "bottom"));

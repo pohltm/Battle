@@ -33,7 +33,7 @@ public class BattleshipWeek2Tests {
 	
 	@Test
 	public void TestThatCheckerReturnsValidOnValidPlacement(){
-		GameBoard g = new GameBoard(10,10,5);
+		GameBoard g = new GameBoard(10,10,1);
 		ArrayList<Ship> ships = new ArrayList<Ship>();
 		Ship s = new Ship(5,5,2,true);
 		ships.add(s);
@@ -96,7 +96,7 @@ public class BattleshipWeek2Tests {
 	
 	@Test
 	public void TestThatCheckerReturnsValidOnValidPlacementWithShipOnEdge(){
-		GameBoard g = new GameBoard(10,10,5);
+		GameBoard g = new GameBoard(10,10,1);
 		ArrayList<Ship> ships = new ArrayList<Ship>();
 		Ship s = new Ship(0,0,3,true);
 		ships.add(s);
@@ -105,7 +105,7 @@ public class BattleshipWeek2Tests {
 	
 	@Test
 	public void TestThatCheckerReturnsValidOnValidPlacementWithLongestShipHorizontal(){
-		GameBoard g = new GameBoard(10,10,5);
+		GameBoard g = new GameBoard(10,10,1);
 		ArrayList<Ship> ships = new ArrayList<Ship>();
 		Ship s = new Ship(3,0,10,true);
 		ships.add(s);
@@ -114,7 +114,7 @@ public class BattleshipWeek2Tests {
 	
 	@Test
 	public void TestThatCheckerReturnsValidOnValidPlacementWithLongestShipVertical(){
-		GameBoard g = new GameBoard(10,10,5);
+		GameBoard g = new GameBoard(10,10,1);
 		ArrayList<Ship> ships = new ArrayList<Ship>();
 		Ship s = new Ship(0,3,10,false);
 		ships.add(s);
@@ -123,7 +123,7 @@ public class BattleshipWeek2Tests {
 	
 	@Test
 	public void TestThatCheckerReturnsValidOnValidPlacementWith2ValidShips(){
-		GameBoard g = new GameBoard(10,10,5);
+		GameBoard g = new GameBoard(10,10,2);
 		ArrayList<Ship> ships = new ArrayList<Ship>();
 		Ship s1 = new Ship(3,3,3,true);
 		Ship s2 = new Ship(4,6,2,true);
@@ -134,7 +134,7 @@ public class BattleshipWeek2Tests {
 	
 	@Test
 	public void TestThatCheckerReturnsValidOnValidPlacementWithCloseShips(){
-		GameBoard g = new GameBoard(10,10,5);
+		GameBoard g = new GameBoard(10,10,2);
 		ArrayList<Ship> ships = new ArrayList<Ship>();
 		Ship s1 = new Ship(3,3,3,true);
 		Ship s2 = new Ship(4,3,3,false);
@@ -167,7 +167,7 @@ public class BattleshipWeek2Tests {
 	
 	@Test
 	public void TestThatPlaceShipsPlacesShips(){
-		GameBoard g = new GameBoard(10,10,5);
+		GameBoard g = new GameBoard(10,10,2);
 		ArrayList<Ship> ships = new ArrayList<Ship>();
 		Ship s1 = new Ship(3,3,3,true);
 		Ship s2 = new Ship(4,6,2,true);
