@@ -150,7 +150,7 @@ public class BattleshipWeek3Tests {
 		assertEquals("Help", englishBundle.getString("help"));
 		assertEquals("About", englishBundle.getString("about"));
 		// Added after commit
-		assertEquals("How to play", englishBundle.getString("howToPlay"));
+		assertEquals("How to Play", englishBundle.getString("howToPlay"));
 		assertEquals("Goal", englishBundle.getString("goal"));
 		assertEquals("Setup", englishBundle.getString("setup"));
 		assertEquals("Play", englishBundle.getString("play"));
