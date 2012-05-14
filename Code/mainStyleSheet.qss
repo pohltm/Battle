@@ -37,7 +37,7 @@ QLineEdit {
 
 QMenuBar {
 	background-color: QLinearGradient(x1:0, y1:0, x2:0, y2:1, stop:0 rgb(255, 255, 255), stop:1 rgb(200, 200, 200));
-	max-height: 25px;
+	max-height: 30px;
 }
 
 QMenuBar::item {

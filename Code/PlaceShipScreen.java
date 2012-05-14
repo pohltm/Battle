@@ -11,6 +11,7 @@ import com.trolltech.qt.gui.QMessageBox;
 import com.trolltech.qt.gui.QPushButton;
 import com.trolltech.qt.gui.QTableWidget;
 import com.trolltech.qt.gui.QTableWidgetItem;
+import com.trolltech.qt.gui.QVBoxLayout;
 import com.trolltech.qt.gui.QWidget;
 import com.trolltech.qt.gui.QAbstractItemView.EditTrigger;
 import com.trolltech.qt.gui.QAbstractItemView.SelectionMode;
@@ -35,36 +36,50 @@ public class PlaceShipScreen extends QWidget {
 		this.parent = parent;
 		this.horiz = false;
 		this.parent.setWindowTitle(bundle.getString("placeShipScreen"));
-		ships = new ArrayList<Ship>();
-		
+		this.ships = new ArrayList<Ship>();
 		this.gb = gb;
+		
+		MenuBar menuBar = new MenuBar(this.parent, this.bundle, "placeShip", this.gb, this.lengths, false);
+		QWidget mainWidget = createMainWidget();
+		
+		QVBoxLayout widgetLayout = new QVBoxLayout();
+		widgetLayout.setMargin(0);
+		widgetLayout.addWidget(menuBar);
+		widgetLayout.addWidget(mainWidget);
+		
+		this.setLayout(widgetLayout);
+		this.show();
+	}
+	
+	public QWidget createMainWidget() {
+		QWidget mainWidget = new QWidget();
 		
 		table = createTable();
 		
-		QGridLayout widgetLayout = new QGridLayout();
-		widgetLayout.addWidget(table, 1, 2);
+		QCheckBox horizontal = new QCheckBox(bundle.getString("horizontal"));
 		
 		QPushButton back = new QPushButton(bundle.getString("back"));
 		QPushButton play = new QPushButton(bundle.getString("play"));
-		
-		QCheckBox horizontal = new QCheckBox(bundle.getString("horizontal"));
-		
-		widgetLayout.addWidget(back, 2, 1);
-		widgetLayout.addWidget(play, 2, 3);
-		widgetLayout.addWidget(horizontal, 1,3);
 		
 		back.clicked.connect(this, "showSetupScreen2()");
 		play.clicked.connect(this, "play()");
 		horizontal.clicked.connect(this, "setHorizontal()");
 		
-		this.setLayout(widgetLayout);
+		QGridLayout widgetLayout = new QGridLayout();
+		widgetLayout.addWidget(table, 0, 2);
+		widgetLayout.addWidget(horizontal, 0, 3);
+		widgetLayout.addWidget(back, 1, 1);
+		widgetLayout.addWidget(play, 1, 3);
+		
+		mainWidget.setLayout(widgetLayout);
+		
 		int tableWidth = (table.columnWidth(0) * table.columnCount()) + table.verticalHeader().width();
 		int tableHeight = (table.rowHeight(0) * table.rowCount()) + table.horizontalHeader().height();
 		table.setHorizontalScrollBarPolicy(ScrollBarPolicy.ScrollBarAlwaysOff);
 		table.setVerticalScrollBarPolicy(ScrollBarPolicy.ScrollBarAlwaysOff);
 		table.setFixedSize(tableWidth, tableHeight);
 		
-		this.show();
+		return mainWidget;
 	}
 	
 	public QTableWidget createTable() {

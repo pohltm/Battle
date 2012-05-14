@@ -26,8 +26,11 @@ public class SetupScreen2 extends QWidget {
 		this.gb = gb;
 		
 		QWidget menu = createMenu();
+		MenuBar menuBar = new MenuBar(this.parent, this.bundle, "setup2", this.gb, null, false);
 		
 		QVBoxLayout widgetLayout = new QVBoxLayout();
+		widgetLayout.setMargin(0);
+		widgetLayout.addWidget(menuBar);
 		widgetLayout.addWidget(menu);
 		
 		this.setLayout(widgetLayout);

@@ -7,6 +7,7 @@ import com.trolltech.qt.gui.QGridLayout;
 import com.trolltech.qt.gui.QMessageBox;
 import com.trolltech.qt.gui.QTableWidget;
 import com.trolltech.qt.gui.QTableWidgetItem;
+import com.trolltech.qt.gui.QVBoxLayout;
 import com.trolltech.qt.gui.QWidget;
 import com.trolltech.qt.gui.QAbstractItemView.EditTrigger;
 import com.trolltech.qt.gui.QAbstractItemView.SelectionMode;
@@ -20,15 +21,30 @@ public class BoardScreen extends QWidget {
 	QTableWidget tableTop;
 	QTableWidget tableBottom;
 	AI ai;
+	int[] lengths;
 	
 	public BoardScreen(QWidget parent, ResourceBundle bundle, GameBoard gb, int[] lengths) {
 		super(parent);
 		this.bundle = bundle;
 		this.parent = parent;
 		this.parent.setWindowTitle(bundle.getString("boardScreen"));
-		
 		this.gb = gb;
-
+		this.lengths = lengths;
+		
+		MenuBar menuBar = new MenuBar(this.parent, this.bundle, "board", this.gb, this.lengths, false);
+		QWidget mainWidget = createMainWidget();
+		
+		QVBoxLayout widgetLayout = new QVBoxLayout();
+		widgetLayout.setMargin(0);
+		widgetLayout.addWidget(menuBar);
+		widgetLayout.addWidget(mainWidget);
+		
+		this.setLayout(widgetLayout);
+		this.show();
+	}
+	
+	public QWidget createMainWidget() {
+		QWidget mainWidget = new QWidget();
 		
 		this.tableTop = createTable(true);
 		int tableWidth = (tableTop.columnWidth(0) * tableTop.columnCount()) + tableTop.verticalHeader().width();
@@ -41,7 +57,7 @@ public class BoardScreen extends QWidget {
 		tableBottom.setVerticalScrollBarPolicy(ScrollBarPolicy.ScrollBarAlwaysOff);
 		tableBottom.setFixedSize(tableWidth, tableHeight);
 		
-		ai =  new AI(this.gb,lengths);
+		ai =  new AI(this.gb, this.lengths);
 		ai.placeShips();
 		
 		this.populateTopTable(tableTop);
@@ -52,13 +68,13 @@ public class BoardScreen extends QWidget {
 		widgetLayout.addWidget(tableTop,1,2);
 		widgetLayout.addWidget(tableBottom,2,2);
 		
-		this.setLayout(widgetLayout);
-		this.show();
+		mainWidget.setLayout(widgetLayout);
+		return mainWidget;
 	}
 	
 	public QTableWidget createTable(boolean top) {
 		QTableWidget table = new QTableWidget(this.gb.getHeight(), gb.getWidth());
-		double tableSize = this.parent.height() / 2 - 50;
+		double tableSize = this.parent.height() / 2 - 60;
 		
 		for (int i = 0; i < table.columnCount(); i++) {
 			table.setColumnWidth(i, (int)(tableSize/((double)(this.gb.getWidth()))));
