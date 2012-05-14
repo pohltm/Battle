@@ -102,7 +102,7 @@ public class BoardScreen extends QWidget {
 				if(gb.playerWon()) {
 					showEndScreen(true);
 				} else {
-					QMessageBox sunkShip = new QMessageBox();
+					QMessageBox sunkShip = new QMessageBox(this);
 					sunkShip.setWindowTitle(bundle.getString("sunkShipTitle"));
 					sunkShip.setText(bundle.getString("sunkShipText"));
 					sunkShip.exec();
@@ -118,7 +118,7 @@ public class BoardScreen extends QWidget {
 				}
 			}
 		} else {
-			QMessageBox overkill = new QMessageBox();
+			QMessageBox overkill = new QMessageBox(this);
 			overkill.setWindowTitle(bundle.getString("overkillTitle"));
 			overkill.setText(bundle.getString("overkillText"));
 			overkill.exec();

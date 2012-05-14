@@ -122,7 +122,7 @@ public class PlaceShipScreen extends QWidget {
 				}
 			}
 		} catch(ArrayIndexOutOfBoundsException e) {
-			QMessageBox overplay = new QMessageBox();
+			QMessageBox overplay = new QMessageBox(this);
 			overplay.setWindowTitle(bundle.getString("placeTooManyTitle"));
 			overplay.setText(bundle.getString("placeTooManyText"));
 			overplay.exec();
@@ -136,7 +136,7 @@ public class PlaceShipScreen extends QWidget {
 		if (gb.checkAndPlaceShips(ships, "bottom")) {
 			((GameStarter) parent).showBoardScreen(gb, lengths);
 		} else {
-			QMessageBox mess = new QMessageBox();
+			QMessageBox mess = new QMessageBox(this);
 			mess.setWindowTitle(bundle.getString("placeErrorTitle"));
 			mess.setText(bundle.getString("placeErrorText"));
 			mess.exec();

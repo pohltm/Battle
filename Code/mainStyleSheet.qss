@@ -49,5 +49,7 @@ QMenuBar::item:selected {
 }
 
 QMessageBox {
+	min-width: 250;
+	min-height: 250;
 	background-color: QLinearGradient(x1:0, y1:0, x2:0, y2:1, stop:0 rgb(188, 240, 243), stop:1 rgb(78, 168, 175));
 }
