@@ -1,5 +1,6 @@
 import java.util.ResourceBundle;
 
+import com.trolltech.qt.core.Qt.ScrollBarPolicy;
 import com.trolltech.qt.gui.QBrush;
 import com.trolltech.qt.gui.QColor;
 import com.trolltech.qt.gui.QGridLayout;
@@ -27,11 +28,18 @@ public class BoardScreen extends QWidget {
 		this.parent.setWindowTitle(bundle.getString("boardScreen"));
 		
 		this.gb = gb;
+
 		
 		this.tableTop = createTable(true);
-		tableTop.setFixedSize(390,390);
+		int tableWidth = (tableTop.columnWidth(0) * tableTop.columnCount()) + tableTop.verticalHeader().width();
+		int tableHeight = (tableTop.rowHeight(0) * tableTop.rowCount()) + tableTop.horizontalHeader().height();
+		tableTop.setHorizontalScrollBarPolicy(ScrollBarPolicy.ScrollBarAlwaysOff);
+		tableTop.setVerticalScrollBarPolicy(ScrollBarPolicy.ScrollBarAlwaysOff);
+		tableTop.setFixedSize(tableWidth, tableHeight);
 		this.tableBottom = createTable(false);
-		tableBottom.setFixedSize(390,390);
+		tableBottom.setHorizontalScrollBarPolicy(ScrollBarPolicy.ScrollBarAlwaysOff);
+		tableBottom.setVerticalScrollBarPolicy(ScrollBarPolicy.ScrollBarAlwaysOff);
+		tableBottom.setFixedSize(tableWidth, tableHeight);
 		
 		ai =  new AI(this.gb,lengths);
 		ai.placeShips();
@@ -45,55 +53,55 @@ public class BoardScreen extends QWidget {
 		widgetLayout.addWidget(tableBottom,2,2);
 		
 		this.setLayout(widgetLayout);
-		
 		this.show();
 	}
 	
 	public QTableWidget createTable(boolean top) {
 		QTableWidget table = new QTableWidget(this.gb.getHeight(), gb.getWidth());
+		double tableSize = this.parent.height() / 2 - 50;
+		
 		for (int i = 0; i < table.columnCount(); i++) {
-			table.setColumnWidth(i, (int)(365.0/((double)(this.gb.getWidth()))));
+			table.setColumnWidth(i, (int)(tableSize/((double)(this.gb.getWidth()))));
 		}
+		
 		for (int i = 0; i < table.rowCount(); i++) {
-			table.setRowHeight(i, (int)(365.0/((double)(this.gb.getHeight()))));
+			table.setRowHeight(i, (int)(tableSize/((double)(this.gb.getHeight()))));
 		}
+		
 		table.setEditTriggers(EditTrigger.NoEditTriggers);
 		table.setSelectionMode(SelectionMode.SingleSelection);
+		
 		if(top){
 			table.cellClicked.connect(this, "shotFired(int, int)");
-		}else{
+		} else{
 			table.setSelectionMode(SelectionMode.NoSelection);
 		}
+		
 		return table;
 	}
 	
 	public void shotFired(int row, int col) {
-		if(this.gb.checkShotTop(row, col)){
-			if(gb.shootTop(row, col)){
-				if(gb.playerWon()){
+		if (this.gb.checkShotTop(row, col)) {
+			if (gb.shootTop(row, col)) {
+				if(gb.playerWon()) {
 					showEndScreen(true);
-				}
-				else{
+				} else {
 					QMessageBox sunkShip = new QMessageBox();
 					sunkShip.setWindowTitle(bundle.getString("sunkShipTitle"));
 					sunkShip.setText(bundle.getString("sunkShipText"));
 					sunkShip.exec();
 					populateTopTable(tableTop);
 				}
-			}
-			else{
+			} else {
 				populateTopTable(tableTop);
 				ai.shoot();
-				if(gb.AIWon()){
-					
+				if (gb.AIWon()) {
 					showEndScreen(false);
-				}
-				else{
+				} else{ 
 					populateBottomTable(tableBottom);
 				}
 			}
-		}
-		else{
+		} else {
 			QMessageBox overkill = new QMessageBox();
 			overkill.setWindowTitle(bundle.getString("overkillTitle"));
 			overkill.setText(bundle.getString("overkillText"));
@@ -102,13 +110,13 @@ public class BoardScreen extends QWidget {
 	}
 	
 	
-	private void populateTopTable(QTableWidget table){
+	private void populateTopTable(QTableWidget table) {
 		int width = gb.getTopGrid().getWidth();
 		int height = gb.getTopGrid().getHeight();
 		IGridCell[][] gridCells = gb.getTopGrid().getGrid();
 		
-		for(int r = 0; r < height; r++){
-			for(int c = 0; c < width; c++){
+		for (int r = 0; r < height; r++) {
+			for (int c = 0; c < width; c++) {
 				String val = gridCells[r][c] instanceof ShipCell ? new Empty(r, c).toString() : gridCells[r][c].toString();
 				QTableWidgetItem item = new QTableWidgetItem(val);
 				if (val.equals("H")) {
@@ -123,13 +131,13 @@ public class BoardScreen extends QWidget {
 		}
 	}
 	
-	private void populateBottomTable(QTableWidget table){
+	private void populateBottomTable(QTableWidget table) {
 		int width = gb.getBottomGrid().getWidth();
 		int height = gb.getBottomGrid().getHeight();
 		IGridCell[][] gridCells = gb.getBottomGrid().getGrid();
 		
-		for(int r = 0; r < height; r++){
-			for(int c = 0; c < width; c++){
+		for (int r = 0; r < height; r++) {
+			for (int c = 0; c < width; c++) {
 				String val = gridCells[r][c].toString();
 				QTableWidgetItem item = new QTableWidgetItem(val);
 				if (val.equals("H")) {
@@ -138,7 +146,7 @@ public class BoardScreen extends QWidget {
 					item.setBackground(new QBrush(QColor.white));
 				} else if (val.equals("S")){
 					item.setBackground(new QBrush(QColor.gray));
-				} else{
+				} else {
 					item.setBackground(new QBrush(new QColor(0, 154, 255)));
 				}
 				table.setItem(r, c, item);
@@ -146,7 +154,7 @@ public class BoardScreen extends QWidget {
 		}
 	}
 	
-	public void showEndScreen(boolean win){
+	public void showEndScreen(boolean win) {
 		((GameStarter) parent).showEndScreen(win);
 	}
 }

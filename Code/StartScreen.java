@@ -32,7 +32,6 @@ public class StartScreen extends QWidget {
 		widgetLayout.addWidget(title);
 		
 		this.setLayout(widgetLayout);
-		
 		this.show();
 	}
 	

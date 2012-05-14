@@ -1,16 +1,10 @@
 import java.util.ResourceBundle;
 
-import com.trolltech.qt.gui.QBrush;
-import com.trolltech.qt.gui.QColor;
+import com.trolltech.qt.core.Qt.AlignmentFlag;
 import com.trolltech.qt.gui.QGridLayout;
 import com.trolltech.qt.gui.QLabel;
-import com.trolltech.qt.gui.QMessageBox;
 import com.trolltech.qt.gui.QPushButton;
-import com.trolltech.qt.gui.QTableWidget;
-import com.trolltech.qt.gui.QTableWidgetItem;
 import com.trolltech.qt.gui.QWidget;
-import com.trolltech.qt.gui.QAbstractItemView.EditTrigger;
-import com.trolltech.qt.gui.QAbstractItemView.SelectionMode;
 
 
 public class EndScreen extends QWidget {
@@ -28,7 +22,9 @@ public class EndScreen extends QWidget {
 		
 		
 		QLabel winMessage = new QLabel(this.bundle.getString("winMessage"));
+		winMessage.setAlignment(AlignmentFlag.AlignCenter);
 		QLabel lossMessage = new QLabel(this.bundle.getString("lossMessage"));
+		lossMessage.setAlignment(AlignmentFlag.AlignCenter);
 		QPushButton playAgain = new QPushButton(this.bundle.getString("playAgain"));
 		QPushButton exit = new QPushButton(this.bundle.getString("endGame"));
 		
@@ -37,10 +33,9 @@ public class EndScreen extends QWidget {
 		widgetLayout.addWidget(playAgain,2,0);
 		widgetLayout.addWidget(exit,2,2);
 		
-		if(this.win){
+		if (this.win) {
 			widgetLayout.addWidget(winMessage,1,1);
-		}
-		else{
+		} else {
 			widgetLayout.addWidget(lossMessage,1,1);
 		}
 		
@@ -48,13 +43,10 @@ public class EndScreen extends QWidget {
 		exit.clicked.connect(this, "exitGame()");
 		
 		this.setLayout(widgetLayout);
-		
 		this.show();
 	}
 	
-	
-	
-	public void exitGame(){
+	public void exitGame() {
 		this.parent.close();
 	}
 }

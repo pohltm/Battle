@@ -29,7 +29,6 @@ public class SetupScreen1 extends QWidget {
 		widgetLayout.addWidget(menu);
 		
 		this.setLayout(widgetLayout);
-		
 		this.show();
 	}
 	
@@ -63,12 +62,10 @@ public class SetupScreen1 extends QWidget {
 		next.clicked.connect(this, "showSetupScreen2()");
 		
 		menu.setLayout(menuLayout);
-		
 		return menu;
 	}
 	
-	public void showSetupScreen2(){
+	public void showSetupScreen2() {
 		((GameStarter) this.parent).showSetupScreen2(new GameBoard (new Integer(boardWidth.text()), new Integer(boardHeight.text()), new Integer(shipNumber.text())));
 	}
 }
-

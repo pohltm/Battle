@@ -2,7 +2,7 @@
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import com.trolltech.qt.gui.QAbstractItemView.SelectionMode;
+import com.trolltech.qt.core.Qt.ScrollBarPolicy;
 import com.trolltech.qt.gui.QBrush;
 import com.trolltech.qt.gui.QCheckBox;
 import com.trolltech.qt.gui.QColor;
@@ -13,6 +13,7 @@ import com.trolltech.qt.gui.QTableWidget;
 import com.trolltech.qt.gui.QTableWidgetItem;
 import com.trolltech.qt.gui.QWidget;
 import com.trolltech.qt.gui.QAbstractItemView.EditTrigger;
+import com.trolltech.qt.gui.QAbstractItemView.SelectionMode;
 
 
 public class PlaceShipScreen extends QWidget {
@@ -57,19 +58,27 @@ public class PlaceShipScreen extends QWidget {
 		horizontal.clicked.connect(this, "setHorizontal()");
 		
 		this.setLayout(widgetLayout);
-		table.setFixedSize(500,500);
+		int tableWidth = (table.columnWidth(0) * table.columnCount()) + table.verticalHeader().width();
+		int tableHeight = (table.rowHeight(0) * table.rowCount()) + table.horizontalHeader().height();
+		table.setHorizontalScrollBarPolicy(ScrollBarPolicy.ScrollBarAlwaysOff);
+		table.setVerticalScrollBarPolicy(ScrollBarPolicy.ScrollBarAlwaysOff);
+		table.setFixedSize(tableWidth, tableHeight);
 		
 		this.show();
 	}
 	
 	public QTableWidget createTable() {
 		QTableWidget table = new QTableWidget(this.gb.getHeight(), gb.getWidth());
+		double tableSize = this.parent.height() - 300;
+		
 		for (int i = 0; i < table.columnCount(); i++) {
-			table.setColumnWidth(i, (int)(475.0/((double)this.gb.getWidth())));
+			table.setColumnWidth(i, (int)(tableSize/((double)this.gb.getWidth())));
 		}
+		
 		for (int i = 0; i < table.rowCount(); i++) {
-			table.setRowHeight(i, (int)(475.0/((double)this.gb.getHeight())));
+			table.setRowHeight(i, (int)(tableSize/((double)this.gb.getHeight())));
 		}
+		
 		table.setEditTriggers(EditTrigger.NoEditTriggers);
 		table.setSelectionMode(SelectionMode.SingleSelection);
 		table.cellClicked.connect(this, "place1(int,int)");
@@ -77,43 +86,41 @@ public class PlaceShipScreen extends QWidget {
 		return table;
 	}
 	
-	
-	public void setHorizontal(){
+	public void setHorizontal() {
 		horiz = !horiz;
 	}
 	
-	public void place1(int r, int c){
+	public void place1(int r, int c) {
 		try{
 			ships.add(new Ship(r,c,lengths[shipNum],horiz));
-			if(horiz){
-				for(int col = c; col < c+lengths[shipNum];col++){
+			if (horiz) {
+				for (int col = c; col < c+lengths[shipNum];col++) {
 					QTableWidgetItem item = new QTableWidgetItem("S");
 					item.setBackground(new QBrush(QColor.gray));
 					table.setItem(r, col, item);
 				}
-			}else{
-				for(int row = r; row < r+lengths[shipNum]; row++){
+			} else {
+				for (int row = r; row < r+lengths[shipNum]; row++) {
 					QTableWidgetItem item = new QTableWidgetItem("S");
 					item.setBackground(new QBrush(QColor.gray));
 					table.setItem(row, c, item);
 				}
 			}
-		}catch(ArrayIndexOutOfBoundsException e){
+		} catch(ArrayIndexOutOfBoundsException e) {
 			QMessageBox overplay = new QMessageBox();
 			overplay.setWindowTitle(bundle.getString("placeTooManyTitle"));
 			overplay.setText(bundle.getString("placeTooManyText"));
 			overplay.exec();
 		}
-		if(shipNum<lengths.length){
+		if (shipNum<lengths.length) {
 			shipNum++;
 		}
 	}
 	
-	public void play(){
-		if(gb.checkAndPlaceShips(ships, "bottom")){
+	public void play() {
+		if (gb.checkAndPlaceShips(ships, "bottom")) {
 			((GameStarter) parent).showBoardScreen(gb, lengths);
-		}
-		else{
+		} else {
 			QMessageBox mess = new QMessageBox();
 			mess.setWindowTitle(bundle.getString("placeErrorTitle"));
 			mess.setText(bundle.getString("placeErrorText"));
@@ -122,7 +129,7 @@ public class PlaceShipScreen extends QWidget {
 		}
 	}
 	
-	public void showSetupScreen2(){
+	public void showSetupScreen2() {
 		((GameStarter) parent).showSetupScreen2(gb);
 	}
 }

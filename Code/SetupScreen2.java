@@ -31,7 +31,6 @@ public class SetupScreen2 extends QWidget {
 		widgetLayout.addWidget(menu);
 		
 		this.setLayout(widgetLayout);
-		
 		this.show();
 	}
 	
@@ -42,7 +41,7 @@ public class SetupScreen2 extends QWidget {
 		QValidator intValidator = new QIntValidator(this);
 		lengths = new QLineEdit[gb.getNumberOfShips()];
 		
-		for(int i = 0; i < gb.getNumberOfShips(); i++) {
+		for (int i = 0; i < gb.getNumberOfShips(); i++) {
 			QLabel shipLength = new QLabel(bundle.getString("shipLength") + (i + 1) + ": ");
 			lengths[i] = new QLineEdit("2");
 			lengths[i].setValidator(intValidator);
@@ -60,19 +59,20 @@ public class SetupScreen2 extends QWidget {
 		next.clicked.connect(this, "showPlaceShipScreen()");
 		
 		menu.setLayout(menuLayout);
-		
 		return menu;
 	}
 	
-	public void showPlaceShipScreen(){
+	public void showPlaceShipScreen() {
 		int[] lengths2 = new int[gb.getNumberOfShips()];
-		for(int x=0;x<gb.getNumberOfShips();x++){
+		
+		for (int x=0;x<gb.getNumberOfShips();x++) {
 			lengths2[x] = (new Integer(lengths[x].text()));
-			if(lengths2[x] <=0 || lengths2[x] > this.gb.getWidth() && lengths2[x] > this.gb.getHeight()){
+			
+			if (lengths2[x] <=0 || lengths2[x] > this.gb.getWidth() && lengths2[x] > this.gb.getHeight()) {
 				throw new NumberFormatException();
 			}
 		}
+		
 		((GameStarter) this.parent).showPlaceShipScreen(gb,lengths2);
 	}
 }
-

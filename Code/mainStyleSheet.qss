@@ -2,22 +2,33 @@ QMainWindow {
 	background-color: QLinearGradient(x1:0, y1:0, x2:0, y2:1, stop:0 rgb(188, 240, 243), stop:1 rgb(78, 168, 175));
 }
 
+QWidget {
+	font-family: "Kristen ITC";
+}
+
 QPushButton {
 	min-width: 75px;
 	min-height: 40px;
 	background-color: QLinearGradient(x1:0, y1:0, x2:0, y2:1, stop:0 rgb(255, 255, 255), stop:1 rgb(200, 200, 200));
 	border: 1px solid black;
 	font: bold 24px;
-	font-family: "Kristen ITC";
 }
 
 QLabel {
 	font: 24px;
-	font-family: "Kristen ITC";
 }
 
 #mainTitle {
 	font: 125px;
+}
+
+QCheckBox {
+	font: 24px;
+}
+
+QCheckBox::indicator {
+	width: 25px;
+	height: 25px;
 }
 
 QLineEdit {
