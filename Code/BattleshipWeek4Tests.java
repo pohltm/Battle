@@ -80,16 +80,16 @@ public class BattleshipWeek4Tests {
 	@Test
 	public void testNewGermanText() {
 		assertEquals("Ende-Bildschirm", germanBundle.getString("endScreen"));
-		assertEquals("spielen wieder", germanBundle.getString("playAgain"));
-		assertEquals("verlassen", germanBundle.getString("endGame"));
-		assertEquals("Sie sank ein Schiff! SchieBen wieder", germanBundle.getString("sunkShipText"));
+		assertEquals("Spielen Wieder", germanBundle.getString("playAgain"));
+		assertEquals("Verlassen", germanBundle.getString("endGame"));
+		assertEquals("Sie sank ein Schiff!\nSchieBen wieder", germanBundle.getString("sunkShipText"));
 		assertEquals("Sie sank ein Schiff", germanBundle.getString("sunkShipTitle"));
 		assertEquals("Sie schossen dort bereits", germanBundle.getString("overkillTitle"));
 		assertEquals("SchieBen woanders", germanBundle.getString("overkillText"));
 		assertEquals("Platzierungsfe hler", germanBundle.getString("placeErrorTitle"));
 		assertEquals("Falsche platzierung\nVersuchen Sie es erneut", germanBundle.getString("placeErrorText"));
-		assertEquals("Glückwünsche!\n Sie sind siegreich!", germanBundle.getString("winMessage"));
-		assertEquals("Sie wurden besiegt!\n Mehr glück beim nächsten mal", germanBundle.getString("lossMessage"));
+		assertEquals("Glückwünsche!\nSie sind siegreich!", germanBundle.getString("winMessage"));
+		assertEquals("Sie wurden besiegt!\nMehr glück beim nächsten mal!", germanBundle.getString("lossMessage"));
 	}
 	
 	@Test
@@ -97,14 +97,14 @@ public class BattleshipWeek4Tests {
 		assertEquals("End Screen", englishBundle.getString("endScreen"));
 		assertEquals("Play Again", englishBundle.getString("playAgain"));
 		assertEquals("Exit", englishBundle.getString("endGame"));
-		assertEquals("You sunk a ship! Shoot Again!", englishBundle.getString("sunkShipText"));
+		assertEquals("You sunk a ship!\nShoot Again!", englishBundle.getString("sunkShipText"));
 		assertEquals("You sunk a ship!", englishBundle.getString("sunkShipTitle"));
 		assertEquals("You already shot there", englishBundle.getString("overkillTitle"));
 		assertEquals("Shoot somewhere else", englishBundle.getString("overkillText"));
 		assertEquals("Placement Error", englishBundle.getString("placeErrorTitle"));
-		assertEquals("Improper Placement\n Try again", englishBundle.getString("placeErrorText"));
-		assertEquals("Congratulations!\n You are victorious!", englishBundle.getString("winMessage"));
-		assertEquals("You were defeated!\n Better luck next time", englishBundle.getString("lossMessage"));
+		assertEquals("Improper Placement\nTry again", englishBundle.getString("placeErrorText"));
+		assertEquals("Congratulations!\nYou are victorious!", englishBundle.getString("winMessage"));
+		assertEquals("You were defeated!\nBetter luck next time!", englishBundle.getString("lossMessage"));
 	}
 	
 	
