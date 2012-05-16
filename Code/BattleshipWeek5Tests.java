@@ -2,8 +2,10 @@
 public class BattleshipWeek5Tests {
 
 	//Ships appear realistic
+	//NOT COMPLETE
 	
 	//AI can make an intelligent (non-random) move
+	//COMPLETE
 	
 	//AI shoots again upon sinking a ship
 	//COMPLETE
@@ -18,5 +20,9 @@ public class BattleshipWeek5Tests {
 	//COMPLETE
 	
 	//Victory and defeat are more dramatic
+	//IGNORED
+	
+	//AI can successfully win in a fair match
+	//COMPLETE
 	
 }

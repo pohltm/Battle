@@ -8,8 +8,8 @@ import org.junit.Test;
 
 public class BattleshipWeek4Tests {
 
-	//The ship lengths will be displayed on the placeShipScreen
-	//NOT COMPLETED
+	//The ship lengths will be displayed while placing
+	//COMPLETE
 	
 	//The user can place ships in order of lengths given
 	//COMPLETE
@@ -54,7 +54,7 @@ public class BattleshipWeek4Tests {
 	//COMPLETE
 	
 	//The AI shoots slowly enough to be realistic
-	//NOT COMPLETE
+	//COMPLETE
 	
 	//After the AI shoots, it is the player's turn again
 	//COMPLETE

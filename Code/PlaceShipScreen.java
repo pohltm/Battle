@@ -97,6 +97,16 @@ public class PlaceShipScreen extends QWidget {
 		table.setEditTriggers(EditTrigger.NoEditTriggers);
 		table.setSelectionMode(SelectionMode.SingleSelection);
 		table.cellClicked.connect(this, "place1(int,int)");
+		table.setMouseTracking(true);
+		table.cellEntered.connect(this, "hover(int,int)");
+		
+		for(int r=0;r<this.gb.getHeight();r++){
+			for(int c=0;c<this.gb.getWidth();c++){
+				QTableWidgetItem item = new QTableWidgetItem(" ");
+				item.setBackground(new QBrush(new QColor(0, 154, 255)));
+				table.setItem(r, c, item);
+			}
+		}
 		
 		return table;
 	}
@@ -129,6 +139,37 @@ public class PlaceShipScreen extends QWidget {
 		}
 		if (shipNum<lengths.length) {
 			shipNum++;
+		}
+	}
+	
+	public void hover(int r, int c){
+		if(shipNum < lengths.length){
+			for(int row=0;row<this.gb.getHeight();row++){
+				for(int col=0;col<this.gb.getWidth();col++){
+					try{
+						QTableWidgetItem i = table.item(row, col);
+						if(i.text().equals("S")){
+							//Do nothing
+						}else if(this.horiz && row == r && col >= c && col < c+lengths[shipNum]){
+							QTableWidgetItem item = new QTableWidgetItem("s");
+							item.setBackground(new QBrush(QColor.gray));
+							table.setItem(row, col, item);
+						}else if((!this.horiz) && col ==c && row >=r && row < r+lengths[shipNum]){
+							QTableWidgetItem item = new QTableWidgetItem("s");
+							item.setBackground(new QBrush(QColor.gray));
+							table.setItem(row, col, item);
+						}else{
+							QTableWidgetItem item = new QTableWidgetItem(" ");
+							item.setBackground(new QBrush(new QColor(0, 154, 255)));
+							table.setItem(row, col, item);
+						}
+					}catch(NullPointerException e){
+						QTableWidgetItem item = new QTableWidgetItem(" ");
+						item.setBackground(new QBrush(new QColor(0, 154, 255)));
+						table.setItem(row, col, item);
+					}
+				}
+			}
 		}
 	}
 	
