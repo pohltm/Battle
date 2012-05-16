@@ -8,6 +8,7 @@ import com.trolltech.qt.gui.QCheckBox;
 import com.trolltech.qt.gui.QColor;
 import com.trolltech.qt.gui.QGridLayout;
 import com.trolltech.qt.gui.QMessageBox;
+import com.trolltech.qt.gui.QPixmap;
 import com.trolltech.qt.gui.QPushButton;
 import com.trolltech.qt.gui.QTableWidget;
 import com.trolltech.qt.gui.QTableWidgetItem;
@@ -99,11 +100,16 @@ public class PlaceShipScreen extends QWidget {
 		table.cellClicked.connect(this, "place1(int,int)");
 		table.setMouseTracking(true);
 		table.cellEntered.connect(this, "hover(int,int)");
+		table.setShowGrid(false);
 		
 		for(int r=0;r<this.gb.getHeight();r++){
 			for(int c=0;c<this.gb.getWidth();c++){
 				QTableWidgetItem item = new QTableWidgetItem(" ");
-				item.setBackground(new QBrush(new QColor(0, 154, 255)));
+				QBrush brush = new QBrush();
+				QPixmap pixmap = new QPixmap("water3.bmp");
+				brush.setTexture(pixmap);
+				item.setBackground(brush);
+			//	item.setBackground(new QBrush(new QColor(0, 154, 255)));
 				table.setItem(r, c, item);
 			}
 		}
@@ -160,13 +166,27 @@ public class PlaceShipScreen extends QWidget {
 							table.setItem(row, col, item);
 						}else{
 							QTableWidgetItem item = new QTableWidgetItem(" ");
-							item.setBackground(new QBrush(new QColor(0, 154, 255)));
+							QBrush brush = new QBrush();
+							QPixmap pixmap = new QPixmap("water2.bmp");
+							brush.setTexture(pixmap);
+							item.setBackground(brush);
+						//	item.setBackground(new QBrush(new QColor(0, 154, 255)));
 							table.setItem(row, col, item);
+//							QTableWidgetItem item = new QTableWidgetItem(" ");
+//							item.setBackground(new QBrush(new QColor(0, 154, 255)));
+//							table.setItem(row, col, item);
 						}
 					}catch(NullPointerException e){
 						QTableWidgetItem item = new QTableWidgetItem(" ");
-						item.setBackground(new QBrush(new QColor(0, 154, 255)));
+						QBrush brush = new QBrush();
+						QPixmap pixmap = new QPixmap("water2.bmp");
+						brush.setTexture(pixmap);
+						item.setBackground(brush);
+					//	item.setBackground(new QBrush(new QColor(0, 154, 255)));
 						table.setItem(row, col, item);
+//						QTableWidgetItem item = new QTableWidgetItem(" ");
+//						item.setBackground(new QBrush(new QColor(0, 154, 255)));
+//						table.setItem(row, col, item);
 					}
 				}
 			}

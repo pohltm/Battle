@@ -6,6 +6,7 @@ import com.trolltech.qt.gui.QBrush;
 import com.trolltech.qt.gui.QColor;
 import com.trolltech.qt.gui.QGridLayout;
 import com.trolltech.qt.gui.QMessageBox;
+import com.trolltech.qt.gui.QPixmap;
 import com.trolltech.qt.gui.QTableWidget;
 import com.trolltech.qt.gui.QTableWidgetItem;
 import com.trolltech.qt.gui.QVBoxLayout;
@@ -147,7 +148,10 @@ public class BoardScreen extends QWidget {
 				} else if (val.equals("M")) {
 					item.setBackground(new QBrush(QColor.white));
 				} else {
-					item.setBackground(new QBrush(new QColor(0, 154, 255)));
+					QBrush brush = new QBrush();
+					QPixmap pixmap = new QPixmap("water.bmp");
+					brush.setTexture(pixmap);
+					item.setBackground(brush);
 				}
 				table.setItem(r, c, item);
 			}
@@ -170,7 +174,10 @@ public class BoardScreen extends QWidget {
 				} else if (val.equals("S")){
 					item.setBackground(new QBrush(QColor.gray));
 				} else {
-					item.setBackground(new QBrush(new QColor(0, 154, 255)));
+					QBrush brush = new QBrush();
+					QPixmap pixmap = new QPixmap("water.bmp");
+					brush.setTexture(pixmap);
+					item.setBackground(brush);
 				}
 				table.setItem(r, c, item);
 			}
