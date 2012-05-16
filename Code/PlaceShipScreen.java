@@ -106,7 +106,7 @@ public class PlaceShipScreen extends QWidget {
 			for(int c=0;c<this.gb.getWidth();c++){
 				QTableWidgetItem item = new QTableWidgetItem(" ");
 				QBrush brush = new QBrush();
-				QPixmap pixmap = new QPixmap("water3.bmp");
+				QPixmap pixmap = new QPixmap("water2.bmp");
 				brush.setTexture(pixmap);
 				item.setBackground(brush);
 			//	item.setBackground(new QBrush(new QColor(0, 154, 255)));
@@ -127,13 +127,21 @@ public class PlaceShipScreen extends QWidget {
 			if (horiz) {
 				for (int col = c; col < c+lengths[shipNum];col++) {
 					QTableWidgetItem item = new QTableWidgetItem("S");
-					item.setBackground(new QBrush(QColor.gray));
+					QBrush brush = new QBrush();
+					QPixmap pixmap = new QPixmap("wholeship.bmp");
+					brush.setTexture(pixmap);
+					item.setBackground(brush);
+					//item.setBackground(new QBrush(QColor.gray));
 					table.setItem(r, col, item);
 				}
 			} else {
 				for (int row = r; row < r+lengths[shipNum]; row++) {
 					QTableWidgetItem item = new QTableWidgetItem("S");
-					item.setBackground(new QBrush(QColor.gray));
+					QBrush brush = new QBrush();
+					QPixmap pixmap = new QPixmap("wholeship.bmp");
+					brush.setTexture(pixmap);
+					item.setBackground(brush);
+					//item.setBackground(new QBrush(QColor.gray));
 					table.setItem(row, c, item);
 				}
 			}
@@ -157,12 +165,20 @@ public class PlaceShipScreen extends QWidget {
 						if(i.text().equals("S")){
 							//Do nothing
 						}else if(this.horiz && row == r && col >= c && col < c+lengths[shipNum]){
-							QTableWidgetItem item = new QTableWidgetItem("s");
-							item.setBackground(new QBrush(QColor.gray));
+							QTableWidgetItem item = new QTableWidgetItem(" ");
+							QBrush brush = new QBrush();
+							QPixmap pixmap = new QPixmap("wholeship.bmp");
+							brush.setTexture(pixmap);
+							item.setBackground(brush);
+							//item.setBackground(new QBrush(QColor.gray));
 							table.setItem(row, col, item);
 						}else if((!this.horiz) && col ==c && row >=r && row < r+lengths[shipNum]){
-							QTableWidgetItem item = new QTableWidgetItem("s");
-							item.setBackground(new QBrush(QColor.gray));
+							QTableWidgetItem item = new QTableWidgetItem(" ");
+							QBrush brush = new QBrush();
+							QPixmap pixmap = new QPixmap("wholeship.bmp");
+							brush.setTexture(pixmap);
+							item.setBackground(brush);
+							//item.setBackground(new QBrush(QColor.gray));
 							table.setItem(row, col, item);
 						}else{
 							QTableWidgetItem item = new QTableWidgetItem(" ");
@@ -172,9 +188,6 @@ public class PlaceShipScreen extends QWidget {
 							item.setBackground(brush);
 						//	item.setBackground(new QBrush(new QColor(0, 154, 255)));
 							table.setItem(row, col, item);
-//							QTableWidgetItem item = new QTableWidgetItem(" ");
-//							item.setBackground(new QBrush(new QColor(0, 154, 255)));
-//							table.setItem(row, col, item);
 						}
 					}catch(NullPointerException e){
 						QTableWidgetItem item = new QTableWidgetItem(" ");

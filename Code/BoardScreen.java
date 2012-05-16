@@ -71,6 +71,12 @@ public class BoardScreen extends QWidget {
 		widgetLayout.addWidget(tableBottom,2,2);
 		
 		mainWidget.setLayout(widgetLayout);
+		
+		QMessageBox overkill = new QMessageBox(this);
+		overkill.setWindowTitle(bundle.getString("startGameTitle"));
+		overkill.setText(bundle.getString("startGameText"));
+		overkill.exec();
+		
 		return mainWidget;
 	}
 	
@@ -144,12 +150,20 @@ public class BoardScreen extends QWidget {
 				String val = gridCells[r][c] instanceof ShipCell ? new Empty(r, c).toString() : gridCells[r][c].toString();
 				QTableWidgetItem item = new QTableWidgetItem(val);
 				if (val.equals("H")) {
-					item.setBackground(new QBrush(QColor.red));
+					QBrush brush = new QBrush();
+					QPixmap pixmap = new QPixmap("shiphit.bmp");
+					brush.setTexture(pixmap);
+					item.setBackground(brush);
+					//item.setBackground(new QBrush(QColor.red));
 				} else if (val.equals("M")) {
-					item.setBackground(new QBrush(QColor.white));
+					QBrush brush = new QBrush();
+					QPixmap pixmap = new QPixmap("miss.bmp");
+					brush.setTexture(pixmap);
+					item.setBackground(brush);
+					//item.setBackground(new QBrush(QColor.white));
 				} else {
 					QBrush brush = new QBrush();
-					QPixmap pixmap = new QPixmap("water.bmp");
+					QPixmap pixmap = new QPixmap("water2.bmp");
 					brush.setTexture(pixmap);
 					item.setBackground(brush);
 				}
@@ -168,14 +182,26 @@ public class BoardScreen extends QWidget {
 				String val = gridCells[r][c].toString();
 				QTableWidgetItem item = new QTableWidgetItem(val);
 				if (val.equals("H")) {
-					item.setBackground(new QBrush(QColor.red));
+					QBrush brush = new QBrush();
+					QPixmap pixmap = new QPixmap("shiphit.bmp");
+					brush.setTexture(pixmap);
+					item.setBackground(brush);
+					//item.setBackground(new QBrush(QColor.red));
 				} else if (val.equals("M")) {
-					item.setBackground(new QBrush(QColor.white));
+					QBrush brush = new QBrush();
+					QPixmap pixmap = new QPixmap("miss.bmp");
+					brush.setTexture(pixmap);
+					item.setBackground(brush);
+					//item.setBackground(new QBrush(QColor.white));
 				} else if (val.equals("S")){
-					item.setBackground(new QBrush(QColor.gray));
+					QBrush brush = new QBrush();
+					QPixmap pixmap = new QPixmap("wholeship.bmp");
+					brush.setTexture(pixmap);
+					item.setBackground(brush);
+					//item.setBackground(new QBrush(QColor.gray));
 				} else {
 					QBrush brush = new QBrush();
-					QPixmap pixmap = new QPixmap("water.bmp");
+					QPixmap pixmap = new QPixmap("water2.bmp");
 					brush.setTexture(pixmap);
 					item.setBackground(brush);
 				}
