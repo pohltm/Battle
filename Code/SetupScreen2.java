@@ -46,7 +46,12 @@ public class SetupScreen2 extends QWidget {
 		
 		for (int i = 0; i < gb.getNumberOfShips(); i++) {
 			QLabel shipLength = new QLabel(bundle.getString("shipLength") + (i + 1) + ": ");
-			lengths[i] = new QLineEdit("2");
+			if(i == 0)
+			{
+				lengths[i] = new QLineEdit("3");
+			}else{
+				lengths[i] = new QLineEdit((i+1)+"");
+			}
 			lengths[i].setValidator(intValidator);
 			menuLayout.addWidget(shipLength, i + 1, 1);
 			menuLayout.addWidget(lengths[i], i + 1, 2);

@@ -80,7 +80,7 @@ public class Grid {
 			this.grid[r][c] = new Miss();
 		}
 		else if(this.grid[r][c] instanceof ShipCell){
-			this.grid[r][c] = new Hit();
+			this.grid[r][c] = new Hit(((ShipCell)this.grid[r][c]).getS());
 		}
 		else{
 			return false;

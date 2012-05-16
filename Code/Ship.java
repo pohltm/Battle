@@ -103,4 +103,8 @@ public class Ship {
 		this.sunk = s;
 	}
 	
+	public String toString(){
+		return ("("+r+","+c+")");
+	}
+	
 }

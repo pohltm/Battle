@@ -2,25 +2,23 @@
 /**
  * TODO Put here a description of what this class does.
  *
- * @author plungicb.
- *         Created Apr 19, 2012.
+ * @author hoorncj.
+ *         Created May 15, 2012.
  */
-public class Empty implements IGridCell {
+public class Shot implements IGridCell {
 
 	private int r, c;
+	private Ship s;
 	
 	@Override
 	public String toString(){
-		return " ";
+		return s.toString();
 	}
 	
-	public Empty (int r, int c){
+	public Shot(int r, int c, Ship s){
 		this.r = r;
 		this.c = c;
-	}
-	
-	public Empty (){
-		this (5,5);
+		this.s = s;
 	}
 
 	public int getR() {
@@ -31,6 +29,8 @@ public class Empty implements IGridCell {
 		return c;
 	}
 	
-	
-	
+	public Ship getS(){
+		return s;
+	}
+
 }

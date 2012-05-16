@@ -12,13 +12,13 @@ public class AI {
 	private GameBoard gb;
 	private ArrayList<Ship> ships;
 	private int[] lengths;
-	private ArrayList<Empty> shots;
+	private ArrayList<Shot> shots;
 	
     public AI(GameBoard gb, int[] lengths){
 		this.gb = gb;
 		this.lengths = lengths;
 		this.ships = new ArrayList<Ship>();
-		this.shots = new ArrayList<Empty>();
+		this.shots = new ArrayList<Shot>();
 	}
 
 
@@ -58,23 +58,66 @@ public class AI {
 			}
 			this.shoot();
 		}else if(shot.equals("Sink")){
-			shots.clear();
+			clearShip(this.shots.get(shots.size()-1).getS());
 			this.shoot();
 		}else if(shot.equals("Hit")){
+			Ship tempS = ((Hit)this.gb.getBottomGrid().getGrid()[r][c]).getS();
 			if(shots.isEmpty()){
-				shots.add(new Empty(r,c+1));
-				shots.add(new Empty(r+1,c));
-				shots.add(new Empty(r,c-1));
-				shots.add(new Empty(r-1,c));
+				shots.add(new Shot(r,c+1,tempS));
+				shots.add(new Shot(r+1,c,tempS));
+				shots.add(new Shot(r,c-1,tempS));
+				shots.add(new Shot(r-1,c,tempS));
 			}else{
-				shots.add(new Empty(r,c+1));
-				shots.add(new Empty(r+1,c));
-				shots.add(new Empty(r,c-1));
-				shots.add(new Empty(r-1,c));
+				shots.add(new Shot(r,c+1,tempS));
+				shots.add(new Shot(r+1,c,tempS));
+				shots.add(new Shot(r,c-1,tempS));
+				shots.add(new Shot(r-1,c,tempS));
+				if(c-1 >=0 && this.gb.getBottomGrid().getGrid()[r][c-1] instanceof Hit){
+					shots.add(new Shot(r,c+1,tempS));
+					int x=c-2;
+					while(x>=0 && this.gb.getBottomGrid().getGrid()[r][x] instanceof Hit){
+						x--;
+					}
+					shots.add(new Shot(r,x,tempS));
+				}
+				if(c+1 < this.gb.getWidth() && this.gb.getBottomGrid().getGrid()[r][c+1] instanceof Hit){
+					shots.add(new Shot(r,c-1,tempS));
+					int x=c+2;
+					while(x < this.gb.getWidth() && this.gb.getBottomGrid().getGrid()[r][x] instanceof Hit){
+						x++;
+					}
+					shots.add(new Shot(r,x,tempS));
+				}
+				if(r-1 >=0 && this.gb.getBottomGrid().getGrid()[r-1][c] instanceof Hit){
+					shots.add(new Shot(r+1,c,tempS));
+					int x=r-2;
+					while(x>=0 && this.gb.getBottomGrid().getGrid()[x][c] instanceof Hit){
+						x--;
+					}
+					shots.add(new Shot(x,c,tempS));
+				}
+				if(r+1 < this.gb.getHeight() && this.gb.getBottomGrid().getGrid()[r+1][c] instanceof Hit){
+					shots.add(new Shot(r-1,c,tempS));
+					int x=r+2;
+					while(x < this.gb.getHeight() && this.gb.getBottomGrid().getGrid()[x][c] instanceof Hit){
+						x++;
+					}
+					shots.add(new Shot(x,c,tempS));
+				}
 			}	
 		}else{
 			if(!shots.isEmpty()){
 				shots.remove(shots.size()-1);
+			}
+		}
+	}
+	
+	private void clearShip(Ship s){
+		for(int n=0;n<shots.size();n++){
+			if(shots.get(n).getS() == s){
+				System.out.println("good");
+				shots.remove(n);
+				n--;
 			}
 		}
 	}

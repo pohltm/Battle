@@ -1,5 +1,6 @@
 import java.util.ResourceBundle;
 
+import com.trolltech.qt.core.QAbstractItemModel;
 import com.trolltech.qt.core.Qt.ScrollBarPolicy;
 import com.trolltech.qt.gui.QBrush;
 import com.trolltech.qt.gui.QColor;
@@ -110,7 +111,13 @@ public class BoardScreen extends QWidget {
 				}
 			} else {
 				populateTopTable(tableTop);
+				this.tableTop.repaint();
 				ai.shoot();
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
 				if (gb.AIWon()) {
 					showEndScreen(false);
 				} else{ 
@@ -172,5 +179,9 @@ public class BoardScreen extends QWidget {
 	
 	public void showEndScreen(boolean win) {
 		((GameStarter) parent).showEndScreen(win);
+	}
+	
+	public void doNothing(){
+		System.out.println("nothing");
 	}
 }
