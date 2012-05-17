@@ -26,7 +26,7 @@ public class GameStarter extends QMainWindow {
 	public static void main(String[] args) {
 		QApplication.initialize(args);
 		QMainWindow mainWindow = new GameStarter();
-		mainWindow.setMinimumSize(new QSize(1000, 800));
+		mainWindow.setMinimumSize(new QSize(600, 600));
 //		mainWindow.setFixedSize(new QSize(1000, 800));
 		
 		mainWindow.show();
