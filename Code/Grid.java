@@ -51,7 +51,7 @@ public class Grid {
 		return this.grid;
 	}
 	
-	public void initializeGrid(){
+	private void initializeGrid(){
 		for(int i = 0; i < this.height; i++){
 			for(int j = 0; j < this.width; j++){
 				this.grid[i][j] = new Empty(i, j);

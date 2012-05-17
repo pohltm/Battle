@@ -37,7 +37,7 @@ public class SetupScreen2 extends QWidget {
 		this.show();
 	}
 	
-	public QWidget createMenu() {
+	private QWidget createMenu() {
 		QWidget menu = new QWidget(this);
 		
 		QGridLayout menuLayout = new QGridLayout();
@@ -70,7 +70,8 @@ public class SetupScreen2 extends QWidget {
 		return menu;
 	}
 	
-	public void showPlaceShipScreen() {
+	@SuppressWarnings("unused")
+	private void showPlaceShipScreen() {
 		int[] lengths2 = new int[gb.getNumberOfShips()];
 		
 		for (int x=0;x<gb.getNumberOfShips();x++) {

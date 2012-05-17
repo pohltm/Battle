@@ -33,7 +33,7 @@ public class EndScreen extends QWidget {
 		this.show();
 	}
 	
-	public QWidget createMainWidget() {
+	private QWidget createMainWidget() {
 		QWidget mainWidget = new QWidget();
 		
 		QLabel winMessage = new QLabel(this.bundle.getString("winMessage"));

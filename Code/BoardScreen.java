@@ -45,7 +45,7 @@ public class BoardScreen extends QWidget {
 		this.show();
 	}
 	
-	public QWidget createMainWidget() {
+	private QWidget createMainWidget() {
 		QWidget mainWidget = new QWidget();
 		
 		this.tableTop = createTable(true);
@@ -80,7 +80,7 @@ public class BoardScreen extends QWidget {
 		return mainWidget;
 	}
 	
-	public QTableWidget createTable(boolean top) {
+	private QTableWidget createTable(boolean top) {
 		QTableWidget table = new QTableWidget(this.gb.getHeight(), gb.getWidth());
 		double tableSize = this.parent.height() / 2 - 60;
 		
@@ -104,7 +104,8 @@ public class BoardScreen extends QWidget {
 		return table;
 	}
 	
-	public void shotFired(int row, int col) {
+	@SuppressWarnings("unused")
+	private void shotFired(int row, int col) {
 		if (this.gb.checkShotTop(row, col)) {
 			if (gb.shootTop(row, col)) {
 				if(gb.playerWon()) {
@@ -210,11 +211,7 @@ public class BoardScreen extends QWidget {
 		}
 	}
 	
-	public void showEndScreen(boolean win) {
+	private void showEndScreen(boolean win) {
 		((GameStarter) parent).showEndScreen(win);
-	}
-	
-	public void doNothing(){
-		System.out.println("nothing");
 	}
 }

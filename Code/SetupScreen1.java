@@ -35,7 +35,7 @@ public class SetupScreen1 extends QWidget {
 		this.show();
 	}
 	
-	public QWidget createMenu() {
+	private QWidget createMenu() {
 		QWidget menu = new QWidget(this);
 		
 		QValidator intValidator = new QIntValidator(this);
@@ -68,7 +68,8 @@ public class SetupScreen1 extends QWidget {
 		return menu;
 	}
 	
-	public void showSetupScreen2() {
+	@SuppressWarnings("unused")
+	private void showSetupScreen2() {
 		((GameStarter) this.parent).showSetupScreen2(new GameBoard (new Integer(boardWidth.text()), new Integer(boardHeight.text()), new Integer(shipNumber.text())));
 	}
 }
