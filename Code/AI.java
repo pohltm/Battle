@@ -42,7 +42,7 @@ public class AI {
 
 	public void shoot() {
 		int r, c;
-		System.out.println(shots.toString());
+		//System.out.println(shots.toString());
 		if(shots.isEmpty()){
 			r = (int) (Math.random()*((double)gb.getHeight()));
 			c = (int) (Math.random()*((double)gb.getWidth()));
@@ -115,7 +115,7 @@ public class AI {
 	private void clearShip(Ship s){
 		for(int n=0;n<shots.size();n++){
 			if(shots.get(n).getS() == s){
-				System.out.println("good");
+				//System.out.println("good");
 				shots.remove(n);
 				n--;
 			}
