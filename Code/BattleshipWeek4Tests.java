@@ -42,7 +42,7 @@ public class BattleshipWeek4Tests {
 	//COMPLETE
 	
 	//A message is displayed on screen telling which turn it is
-	//NOT COMPLETE
+	//COMPLETE
 	
 	//On their turn the user can click on a cell to shoot once
 	//COMPLETE

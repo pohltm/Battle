@@ -2,7 +2,7 @@
 public class BattleshipWeek5Tests {
 
 	//Ships appear realistic
-	//NOT COMPLETE
+	//COMPLETE
 	
 	//AI can make an intelligent (non-random) move
 	//COMPLETE

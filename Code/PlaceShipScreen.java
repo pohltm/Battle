@@ -52,7 +52,7 @@ public class PlaceShipScreen extends QWidget {
 		this.show();
 	}
 	
-	public QWidget createMainWidget() {
+	private QWidget createMainWidget() {
 		QWidget mainWidget = new QWidget();
 		
 		table = createTable();
@@ -83,7 +83,7 @@ public class PlaceShipScreen extends QWidget {
 		return mainWidget;
 	}
 	
-	public QTableWidget createTable() {
+	private QTableWidget createTable() {
 		QTableWidget table = new QTableWidget(this.gb.getHeight(), gb.getWidth());
 		double tableSize = this.parent.height() - 300;
 		
@@ -117,11 +117,13 @@ public class PlaceShipScreen extends QWidget {
 		return table;
 	}
 	
-	public void setHorizontal() {
+	@SuppressWarnings("unused")
+	private void setHorizontal() {
 		horiz = !horiz;
 	}
 	
-	public void place1(int r, int c) {
+	@SuppressWarnings("unused")
+	private void place1(int r, int c) {
 		try{
 			ships.add(new Ship(r,c,lengths[shipNum],horiz));
 			if (horiz) {
@@ -156,7 +158,8 @@ public class PlaceShipScreen extends QWidget {
 		}
 	}
 	
-	public void hover(int r, int c){
+	@SuppressWarnings("unused")
+	private void hover(int r, int c){
 		if(shipNum < lengths.length){
 			for(int row=0;row<this.gb.getHeight();row++){
 				for(int col=0;col<this.gb.getWidth();col++){
@@ -206,7 +209,8 @@ public class PlaceShipScreen extends QWidget {
 		}
 	}
 	
-	public void play() {
+	@SuppressWarnings("unused")
+	private void play() {
 		if (gb.checkAndPlaceShips(ships, "bottom")) {
 			((GameStarter) parent).showBoardScreen(gb, lengths);
 		} else {
@@ -218,7 +222,8 @@ public class PlaceShipScreen extends QWidget {
 		}
 	}
 	
-	public void showSetupScreen2() {
+	@SuppressWarnings("unused")
+	private void showSetupScreen2() {
 		((GameStarter) parent).showSetupScreen2(gb);
 	}
 }

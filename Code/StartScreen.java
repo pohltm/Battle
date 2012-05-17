@@ -30,7 +30,7 @@ public class StartScreen extends QWidget {
 		this.show();
 	}
 	
-	public QWidget createTitle() {
+	private QWidget createTitle() {
 		QWidget title = new QWidget(this);
 		
 		QLabel battleship = new QLabel(this.bundle.getString("battleship"));
